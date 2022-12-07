@@ -1,0 +1,64 @@
+body {
+
+    font-family: 'Yeseva One', cursive;
+    color: #F0E1DE;
+    background: #c59894;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+.material-symbols-outlined::selection {
+    background-color: #F0E1DE;
+    color:#012949;
+}
+
+body:hover 
+{
+    cursor:default;
+}
+
+r {
+    color : #F7C9B6;
+}
+
+h1 {
+    font-size: 15vw;
+    text-align: center;
+    padding-bottom: 0%;
+    margin-bottom: 0%;
+}
+
+h1::selection 
+{   
+    background-color: #F0E1DE;
+    color:#012949;
+}
+
+r::selection{
+    background-color: #F0E1DE;
+    color:#c59894;
+}
+
+body:hover 
+{
+    cursor:default;
+}
+
+h2 {
+    margin-top: 0%;
+    padding-top: 0%;
+    font-size: 3.88vw;
+    text-align: center;
+}
+
+h2::selection 
+{   
+    background-color: #F0E1DE;
+    color:#012949;
+}
