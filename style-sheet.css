@@ -53,20 +53,26 @@ h2 {
 
 #searchbar {
     width: 50vw;
+    min-width : 300px;
     height: 4vh;
-    font-size: 2vh;
+    min-height : 20px;
     text-align: left;
     border: 0;
     background: #F0E1DE;
     color: #c59894;
-    margin-left: 25vw;
-    margin-right: 25vw;
     outline: none;
-    padding-right: 0;
+}
+
+span, #searchbar {
+    display:inline-block;
 }
 
 #searchbar::selection
 {
     color: #F0E1DE;
     background: #c59894;
+}
+
+.recherche {
+    text-align: center;
 }
