@@ -17,6 +17,7 @@ def menu():
             # remove space at the beginning of val
             val = val[1:] if val[0] == " " else val
             nameToDb[key] = val
+    f.close()
     tag = request.form['search']
     listeDocu = recherchePDF(tag)
     return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
