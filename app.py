@@ -23,5 +23,9 @@ def menu():
     listeDocu = recherchePDF(tag)
     return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
 
+@app.route("/upload", methods=['POST'])
+def upload():
+    return render_template("upload.html")
+
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)

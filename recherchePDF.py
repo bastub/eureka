@@ -35,6 +35,7 @@ def uploadDB(file, titre, auteur, tags):
         password = getenv("password_db"),
         database = "eureka"
     )
+    tags = tags.split(";")
 
     titre = titre.replace(" ", "_")
 
