@@ -70,6 +70,17 @@ def uploadDB(file, titre, auteur, tags):
     id_doc = cpt
 
     for tag in tags:
+        # check if tag in database else create it
+        sql = "SELECT * FROM Tags WHERE nom = %s"
+        val = (tag,)
+        mycursor.execute(sql, val)
+        myresult = mycursor.fetchall()
+        if len(myresult) == 0:
+            sql = "INSERT INTO Tags (nom) VALUES (%s)"
+            val = (tag,)
+            mycursor.execute(sql, val)
+            db.commit()
+            
         sql = "INSERT INTO Referencement (id_doc, id_tag) VALUES (%s, (SELECT id_tag FROM Tags WHERE nom = %s))"
         val = (id_doc, tag)
 
