@@ -36,8 +36,10 @@ def uploadDB(file, titre, auteur, tags):
         database = "eureka"
     )
     tags = tags.split(";")
-
+    tags = [tag.strip() for tag in tags]
     titre = titre.replace(" ", "_")
+
+    tags.append(titre)
 
     # put the file into the server folder "static/pdf"
     file.save("static/pdf/" + titre + ".pdf")
