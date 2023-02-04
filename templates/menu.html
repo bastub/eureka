@@ -21,14 +21,21 @@
                 ê
             </div>
         </a>
-    <form class = "recherche">
+    <form method = "POST" class="recherche" action="{{ url_for('menu') }}">
         <input id="searchbar" type="text" name="search" placeholder="Recherche">
     </form>
-    <div class = "deroulant">
-        <span class="material-symbols-outlined">
-            menu
-        </span>
-    </div>
+    <div class="navbar">
+        <button class="navbar-toggle">Menu</button>
+        <div class="navbar-links">
+          <a href="#">Option 1</a>
+          <a href="#">Option 2</a>
+          <a href="#">Option 3</a>
+          {% for key in listeMatiere %}
+          <!-- create the menu linking key to val -->
+            <a href="{{ url_for('matiere', matiere = val) }}">{{key}}</a>
+            {% endfor %}
+        </div>
+      </div>
     </header>
     <ul id = 'listeDocu'>
         {% for docu in listeDocu %}
