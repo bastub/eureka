@@ -18,6 +18,7 @@ def menu():
             val = val[1:] if val[0] == " " else val
             nameToDb[key] = val
     f.close()
+    print("\n\nTest\n\n")
     tag = request.form['search']
     listeDocu = recherchePDF(tag)
     return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
