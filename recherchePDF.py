@@ -27,3 +27,52 @@ def recherchePDF(tag):
     db.close()
 
     return myresult
+
+def uploadDB(file, titre, auteur, tags):
+    db = mysql.connector.connect(
+        host = getenv("host_db"),
+        user = getenv("user_db"),
+        password = getenv("password_db"),
+        database = "eureka"
+    )
+
+    titre = titre.replace(" ", "_")
+
+    # put the file into the server folder "static/pdf"
+    file.save("static/pdf/" + titre + ".pdf")
+
+    cpt = getenv("cpt")
+
+    mycursor = db.cursor()
+
+    # use cpt as id value
+    sql = "INSERT INTO Documents (titre, auteur, id) VALUES (%s, %s, %s)"
+    val = (titre, auteur, cpt)
+
+    # Incrementing cpt into .env
+    with open(".env", "r") as f:
+        lines = f.readlines()
+    with open(".env", "w") as f:
+        for line in lines:
+            if line.startswith("cpt"):
+                line = "cpt=" + str(int(cpt) + 1)
+            f.write(line)
+
+    f.close()
+
+    mycursor.execute(sql, val)
+
+    db.commit()
+
+    id_doc = cpt
+
+    for tag in tags:
+        sql = "INSERT INTO Referencement (id_doc, id_tag) VALUES (%s, (SELECT id_tag FROM Tags WHERE nom = %s))"
+        val = (id_doc, tag)
+
+        mycursor.execute(sql, val)
+
+    db.commit()
+
+    # Closing the connection
+    db.close()
