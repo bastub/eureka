@@ -56,12 +56,21 @@ header {
 
 a:link {
     text-decoration: none;
+}
+
+#listeDocu a:link {
+    text-decoration: none;
     color: var(--dark-col1);
 }
 
-a:visited {
+#listeDocu a:visited {
     text-decoration: none;
     color: var(--dark-col1);
+}
+
+#listeDocu #etiquette:hover {
+    background : white;
+    transition: background 0.5s;
 }
 
 #listeDocu {
@@ -72,20 +81,24 @@ a:visited {
 }
 
 #etiquette {
+    border-color: var(--dark-col1);
+    border-style: solid;
+    border-width: 5px;
     margin: 2vw;
     padding: 1vw;
-    border-radius:1vw;
+    border-radius: 1vw;
+    transition: background 0.5s;
 }
 
-h2 {
+#etiquette h2 {
+    color: var(--dark-col2);
     font-family: 'Yeseva One', cursive;
-    margin-top: 0%;
-    padding-top: 0%;
-    margin-bottom: 2vh;
+    margin : 0;
+    padding: 0;
     font-size: 3.5vw;
 }
 
-h3 {
+#etiquette h3 {
     font-family: 'Montserrat', sans-serif;
     margin:0;
     padding:0;

@@ -33,10 +33,12 @@
     <ul id = 'listeDocu'>
         {% for docu in listeDocu %}
             <li>
-                <div id ='etiquette'>
-                <h2><a href="{{ url_for('static', filename = 'pdf/' + docu[0] + '.pdf') }}"download>{{docu[0]}}.pdf</a></h2>
-                <br><h3>{{docu[1]}}</h3>
-                </div>
+                <a href="{{ url_for('static', filename = 'pdf/' + docu[0] + '.pdf') }}"download>
+                    <div id ='etiquette'>
+                        <h2>{{docu[0]}}.pdf</h2>
+                        <h3>{{docu[1]}}</h3>
+                    </div>
+                </a>
             </li>
         {% endfor %}
     </ul>
