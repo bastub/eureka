@@ -1,6 +1,5 @@
 from flask import Flask, url_for, render_template, redirect, request
-from recherchePDF import recherchePDF
-from recherchePDF import afficheTout
+from recherchePDF import recherchePDF, afficheTout
 
 app = Flask(__name__)
 
@@ -38,6 +37,9 @@ def tout():
     return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
 
 
+@app.route("/upload", methods=['POST'])
+def upload():
+    return render_template("upload.html")
 
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)
