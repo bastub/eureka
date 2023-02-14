@@ -37,7 +37,7 @@ def tout():
     return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
 
 
-@app.route("/upload", methods=['POST'])
+@app.route("/upload", methods=['GET', 'POST'])
 def upload():
     return render_template("upload.html")
 
