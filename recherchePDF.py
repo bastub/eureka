@@ -50,7 +50,7 @@ def afficheTout():
 
     return myresult
 
-def uploadDB(file, titre, auteur, tags):
+def uploadDB(file, titre, auteur, tags, description):
     db = mysql.connector.connect(
         host = getenv("host_db"),
         user = getenv("user_db"),
@@ -59,7 +59,6 @@ def uploadDB(file, titre, auteur, tags):
     )
     tags = tags.split(";")
     tags = [tag.strip() for tag in tags]
-
 
     titre = titre.replace(" ", "_")
 
@@ -73,8 +72,8 @@ def uploadDB(file, titre, auteur, tags):
     mycursor = db.cursor()
 
     # use cpt as id value
-    sql = "INSERT INTO Documents (titre, auteur) VALUES (%s, %s)"
-    val = (titre, auteur)
+    sql = "INSERT INTO Documents (titre, auteur, description) VALUES (%s, %s, %s)"
+    val = (titre, auteur, description)
 
     mycursor.execute(sql, val)
 
