@@ -50,28 +50,6 @@ def afficheTout():
 
     return myresult
 
-def afficheTout():
-    db = mysql.connector.connect(
-        host = getenv("host_db"),
-        user = getenv("user_db"),
-        password = getenv("password_db"),
-        database = "eureka"
-    )
-
-    mycursor = db.cursor()
-
-    sql = "SELECT titre, auteur, id_doc FROM Documents"
-
-    mycursor.execute(sql)
-
-    # Fetching all pdf
-    myresult = mycursor.fetchall()
-
-    # Closing the connection
-    db.close()
-
-    return myresult
-
 def uploadDB(file, titre, auteur, tags):
     db = mysql.connector.connect(
         host = getenv("host_db"),
