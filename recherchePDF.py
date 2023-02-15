@@ -50,7 +50,7 @@ def afficheTout():
 
     return myresult
 
-def uploadDB(file, titre, auteur, tags, description):
+def uploadDB(file, auteur, tags, description):
     db = mysql.connector.connect(
         host = getenv("host_db"),
         user = getenv("user_db"),
@@ -60,7 +60,8 @@ def uploadDB(file, titre, auteur, tags, description):
     tags = tags.split(";")
     tags = [tag.strip() for tag in tags]
 
-    titre = titre.replace(" ", "_")
+    titre = file.filename.replace("_", " ")
+    titre = titre.replace(".pdf", "")
 
     tags.append(titre)
 
@@ -92,7 +93,13 @@ def uploadDB(file, titre, auteur, tags, description):
             val = (tag,)
             mycursor.execute(sql, val)
             db.commit()
-            
+
+        sql = "SELECT id_doc FROM Documents WHERE titre = %s"
+        val = (titre,)
+        mycursor.execute(sql, val)
+        myresult = mycursor.fetchall()
+        id_doc = myresult[0][0]
+
         sql = "INSERT INTO Referencement (id_doc, id_tag) VALUES (%s, (SELECT id_tag FROM Tags WHERE nom = %s))"
         val = (id_doc, tag)
 
