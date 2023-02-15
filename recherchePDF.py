@@ -81,6 +81,8 @@ def uploadDB(file, titre, auteur, tags):
     )
     tags = tags.split(";")
     tags = [tag.strip() for tag in tags]
+
+
     titre = titre.replace(" ", "_")
 
     tags.append(titre)
@@ -93,19 +95,8 @@ def uploadDB(file, titre, auteur, tags):
     mycursor = db.cursor()
 
     # use cpt as id value
-    sql = "INSERT INTO Documents (titre, auteur, id) VALUES (%s, %s, %s)"
-    val = (titre, auteur, cpt)
-
-    # Incrementing cpt into .env
-    with open(".env", "r") as f:
-        lines = f.readlines()
-    with open(".env", "w") as f:
-        for line in lines:
-            if line.startswith("cpt"):
-                line = "cpt=" + str(int(cpt) + 1)
-            f.write(line)
-
-    f.close()
+    sql = "INSERT INTO Documents (titre, auteur) VALUES (%s, %s)"
+    val = (titre, auteur)
 
     mycursor.execute(sql, val)
 
