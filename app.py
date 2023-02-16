@@ -82,5 +82,28 @@ def uploadPost():
     uploadDB(file, auteur, tags, description)
     return redirect(url_for('index'))
 
+@app.route("/annee", methods=['GET'])
+def annee():
+    annee = request.args.get('annee')
+    nameToDb = {}
+    nom = annee+".txt"
+    with open(nom, "r") as f:
+        for line in f:
+            (key, val) = line.split(":")
+            val = val[:-1] if val[-1] == "\n" else val
+            # remove space at the beginning of val
+            val = val[1:] if val[0] == " " else val
+            nameToDb[key] = val
+    f.close()
+    # liste docu = liste des documents retournés par la recherche avec les clés de nameToDb
+    liste = []
+    # get all the values of the keys
+    for key in nameToDb:
+        listeDocu = recherchePDF(nameToDb[key])
+        liste.append(listeDocu)
+    # merge all the lists in one
+    liste = [item for sublist in liste for item in sublist]
+    return render_template("menu.html", listeDocu = liste, listeMatieres = nameToDb)
+
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)
