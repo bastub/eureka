@@ -28,6 +28,28 @@ def recherche():
         listeDocu = afficheTout()
     return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
 
+@app.route("/recherche")
+def rechercheMenu():
+    nameToDb = {}
+    with open("nameToDb.txt", "r") as f:
+        for line in f:
+            (key, val) = line.split(":")
+            val = val[:-1] if val[-1] == "\n" else val
+            # remove space at the beginning of val
+            val = val[1:] if val[0] == " " else val
+            val.encode("utf-8")
+            nameToDb[key] = val
+    f.close()
+    matiere = request.args.get('matiere')
+    if matiere:
+        # perform search with filter
+        listeDocu = recherchePDF(matiere)
+    else:
+        # perform search without filter
+        listeDocu = recherchePDF('')
+    return render_template("menu.html", listeDocu=listeDocu, listeMatieres=nameToDb)
+
+
 @app.route("/search")
 def tout():
     nameToDb = {}
