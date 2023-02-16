@@ -134,4 +134,3 @@ def deletePDF(titre):
 
     # Closing the connection
     db.close()
-    

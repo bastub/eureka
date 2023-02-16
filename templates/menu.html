@@ -27,13 +27,12 @@
     <div class="navbar">
         <button class="navbar-toggle">Menu</button>
         <div class="navbar-links">
-          <a href="#">Option 1</a>
-          <a href="#">Option 2</a>
-          <a href="#">Option 3</a>
-          {% for key in listeMatiere %}
-          <!-- create the menu linking key to val -->
-            <a href="{{ url_for('matiere', matiere = val) }}">{{key}}</a>
-            {% endfor %}
+          {% for key in listeMatieres.keys() %}
+          <!-- decode utf-8 -->
+            {% set key = key.encode('latin-1').decode('utf-8') %}
+          <!-- changer index par matiere -->
+            <a href="{{ url_for('recherche', matiere=listeMatieres[key]) }}">{{ key }}</a>
+          {% endfor %}
         </div>
       </div>
     </header>

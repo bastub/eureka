@@ -19,10 +19,13 @@ def recherche():
             val = val[:-1] if val[-1] == "\n" else val
             # remove space at the beginning of val
             val = val[1:] if val[0] == " " else val
+            val.encode("utf-8")
             nameToDb[key] = val
     f.close()
     tag = request.form['search']
     listeDocu = recherchePDF(tag)
+    if tag is None or tag == "":
+        listeDocu = afficheTout()
     return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
 
 @app.route("/search")
@@ -46,10 +49,10 @@ def getUpload():
 
 @app.route("/upload", methods=['POST'])
 def uploadPost():
-    passw = request.form['password']
-    load_dotenv()
-    if passw != getenv("password_db"):
-        return redirect(url_for('getUpload'))
+    # passw = request.form['password']
+    # load_dotenv()
+    # if passw != getenv("password_db"):
+    #     return redirect(url_for('getUpload'))
     file = request.files['file']
     auteur = request.form['auteur']
     tags = request.form['tags']
