@@ -1,7 +1,6 @@
 import mysql.connector
 from dotenv import load_dotenv
 from os import getenv
-import PyPDF2
 load_dotenv()
 
 def recherchePDF(tag):
@@ -54,19 +53,12 @@ def isPDF(file):
     if not file.filename.endswith(".pdf"):
         return False
     # check if the content of the file is a pdf and not a fake pdf
-    try:
-        with open(file, "rb") as f:
-            pdf = PyPDF2.PdfFileReader(f)
-            pdf.getPage(0)
-            f.close()
-    except:
-        return False
-
+    # TODO
     return True
 
 def uploadDB(file, auteur, tags, description):
-    if not isPDF(file):
-        return False
+    # if not isPDF(file):
+    #     return False
     db = mysql.connector.connect(
         host = getenv("host_db"),
         user = getenv("user_db"),

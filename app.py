@@ -1,5 +1,8 @@
 from flask import Flask, url_for, render_template, redirect, request
 from recherchePDF import recherchePDF, afficheTout, uploadDB
+from os import getenv
+from dotenv import load_dotenv
+
 
 app = Flask(__name__)
 
@@ -38,11 +41,15 @@ def tout():
 
 
 @app.route("/upload", methods=['GET'])
-def blabla():
+def getUpload():
     return render_template("upload.html")
 
 @app.route("/upload", methods=['POST'])
 def uploadPost():
+    passw = request.form['password']
+    load_dotenv()
+    if passw != getenv("password_db"):
+        return redirect(url_for('getUpload'))
     file = request.files['file']
     auteur = request.form['auteur']
     tags = request.form['tags']
