@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from os import getenv
 load_dotenv()
 
-def recherchePDF(tag):
+def loadDB():
     db = mysql.connector.connect(
         host = getenv("host_db"),
         user = getenv("user_db"),
@@ -11,34 +11,28 @@ def recherchePDF(tag):
         database = "eureka"
     )
 
+    return db
+
+
+def recherchePDF(tag):
+    db = loadDB()
     mycursor = db.cursor()
 
     sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
-
     val = (tag,)
 
     mycursor.execute(sql, val)
-
     # Fetching all pdf
     myresult = mycursor.fetchall()
-
     # Closing the connection
     db.close()
 
     return myresult
 
 def afficheTout():
-    db = mysql.connector.connect(
-        host = getenv("host_db"),
-        user = getenv("user_db"),
-        password = getenv("password_db"),
-        database = "eureka"
-    )
-
+    db = loadDB()
     mycursor = db.cursor()
-
     sql = "SELECT titre, auteur, id_doc FROM Documents"
-
     mycursor.execute(sql)
 
     # Fetching all pdf
@@ -59,12 +53,7 @@ def isPDF(file):
 def uploadDB(file, auteur, tags, description):
     # if not isPDF(file):
     #     return False
-    db = mysql.connector.connect(
-        host = getenv("host_db"),
-        user = getenv("user_db"),
-        password = getenv("password_db"),
-        database = "eureka"
-    )
+    db = loadDB()
     tags = tags.split(";")
     tags = [tag.strip() for tag in tags]
 
@@ -117,3 +106,32 @@ def uploadDB(file, auteur, tags, description):
 
     # Closing the connection
     db.close()
+
+def deletePDF(titre):
+    db = loadDB()
+    mycursor = db.cursor()
+
+    titre = titre.replace("_", " ")
+    titre = titre.replace(".pdf", "")
+    # get id_doc
+    sql = "SELECT id_doc FROM Documents WHERE titre = %s"
+    val = (titre,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    id_doc = myresult[0][0]
+
+    # delete from Referencement
+    sql = "DELETE FROM Referencement WHERE id_doc = %s"
+    val = (id_doc,)
+    mycursor.execute(sql, val)
+
+    # delete from Documents
+    sql = "DELETE FROM Documents WHERE id_doc = %s"
+    val = (id_doc,)
+    mycursor.execute(sql, val)
+
+    db.commit()
+
+    # Closing the connection
+    db.close()
+    
