@@ -14,5 +14,3 @@ def getDictPeriode(annee):
         f.close()
         liste.append(nameToDb)
     return liste
-
-print(getDictPeriode(3))
