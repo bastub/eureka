@@ -131,17 +131,17 @@ font-variation-settings:
 }
 
 .navbar-toggle {
-  background-color: #333;
-  color: #fff;
+  background-color: #c59894;
+  color: #F0E1DE;
   border: none;
   padding: 10px 15px;
-  font-size: 18px;
+  font-size: 11px;
   cursor: pointer;
 }
 
 .navbar-toggle:hover {
-  background-color: #fff;
-  color: #333;
+  background-color: #c59894;
+  color: #F0E1DE;
 }
 
 .navbar-links {
@@ -150,20 +150,21 @@ font-variation-settings:
   top: 100%;
   /*   */
   /* transform: translate(-50%, 0); */
-  background-color: #fff;
+  background-color: #c59894;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
 .navbar-links a {
-  color: #333;
+  color: #F0E1DE;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  font-size: medium;
 }
 
 .navbar-links a:hover {
-  background-color: #ddd;
+  background-color: #F7C9B6;
 }
 
 .navbar:hover .navbar-links {

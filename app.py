@@ -103,6 +103,7 @@ def annee():
         liste.append(listeDocu)
     # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
+    liste = liste
     return render_template("menu.html", listeDocu = liste, listeMatieres = nameToDb)
 
 if __name__ == "__main__" :
