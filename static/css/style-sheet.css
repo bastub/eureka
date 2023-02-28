@@ -102,9 +102,9 @@ h1 {
   border-radius:5px;
 }
 
-#searchbar::selection {
+::selection {
+  background-color: var(--col1);
   color: var(--light-col1);
-  background: var(--dark-col1);
 }
 
 a:link, a:visited {
