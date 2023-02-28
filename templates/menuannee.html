@@ -2,6 +2,7 @@
 
 {% block matieres %}
     <div class="navbar">
+      {% set anneeCours = annee %}
         <button class="navbar-toggle">Matières</button>
         <div class="navbar-links">
           {% for i in range(1, 5) %}
@@ -12,7 +13,7 @@
                   <!-- decode utf-8 -->
                   {% set key = key.encode('latin-1').decode('utf-8') %}
                   <!-- changer index par matiere -->
-                  <a href="{{ url_for('rechercheMenu', matiere=val) }}">{{ key }}</a>
+                  <a href="{{ url_for('annee', annee=anneeCours, matiere=val) }}">{{ key }}</a>
                 {% endfor %}
               </div>
             </div>

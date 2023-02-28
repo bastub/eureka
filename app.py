@@ -92,6 +92,9 @@ def uploadPost():
 @app.route("/annee", methods=['GET'])
 def annee():
     annee = request.args.get('annee')
+    matiere = request.args.get('matiere')
+    if matiere is None:
+        matiere = ""
     # Get the list of dictionaries with subjects for each period
     listeMatieres = getDictPeriode(annee)
     # liste docu = liste des documents retournés par la recherche avec les clés de nameToDb
@@ -101,10 +104,10 @@ def annee():
     for dictMatieres in listeMatieres:
         for value in dictMatieres.items():
             listerecherche.append(value[1])
-    liste = rechercheListePDF(listerecherche, str(annee))
+    liste = rechercheListePDF(listerecherche, str(annee), matiere)
     # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
-    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres)
+    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee)
 
 
 
