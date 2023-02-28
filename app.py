@@ -94,7 +94,7 @@ def annee():
         for value in dictMatieres.items():
             listerecherche.append(value[1])
 
-    liste = rechercheListePDF(listerecherche)
+    liste = rechercheListePDF(listerecherche, annee)
     # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
     return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres)
