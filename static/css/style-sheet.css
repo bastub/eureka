@@ -69,8 +69,8 @@ a:link {
 }
 
 #listeDocu #etiquette:hover {
-  background : white;
-  transition: background 0.5s;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+  transition: box-shadow 0.2s;
 }
 
 #listeDocu {
@@ -81,13 +81,14 @@ a:link {
 }
 
 #etiquette {
-  border-color: var(--dark-col1);
-  border-style: solid;
-  border-width: 5px;
+  background-color: white;
   margin: 2vw;
+  margin-left: 13vw;
+  margin-right: 13vw;
   padding: 1vw;
-  border-radius: 1vw;
-  transition: background 0.5s;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 5px;
+  transition: box-shadow 0.1s;
 }
 
 #etiquette h2 {
@@ -134,7 +135,7 @@ font-variation-settings:
 
 .navbar-toggle {
   background-color: #c59894;
-  color: #F0E1DE;
+  color: var(--light-col1);
   border: none;
   padding: 10px 15px;
   font-size: 11px;
@@ -143,7 +144,7 @@ font-variation-settings:
 
 .navbar-toggle:hover {
   background-color: #c59894;
-  color: #F0E1DE;
+  color: var(--light-col1);
 }
 
 .navbar-links {
@@ -162,7 +163,7 @@ font-variation-settings:
 }
 
 .dropbtn {
-  color: #F0E1DE;
+  color: var(--light-col1);
   background-color: inherit;
   border: none;
   padding: 12px 16px;
@@ -186,7 +187,7 @@ font-variation-settings:
 }
 
 .dropdown-content a {
-  color: #F0E1DE;
+  color: var(--light-col1);
   padding: 12px 16px;
   text-decoration: none;
   display: block;
