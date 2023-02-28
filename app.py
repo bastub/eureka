@@ -78,7 +78,15 @@ def uploadPost():
     auteur = request.form['auteur']
     tags = request.form['tags']
     description = request.form['description']
-    uploadDB(file, auteur, tags, description)
+
+    titre = request.form['titre']
+    if titre is not None and titre != "":
+        file.filename = titre + ".pdf"
+    
+    annee = request.form['annee']
+    type_doc = request.form['type_doc']
+
+    uploadDB(file, auteur, tags, description, annee, type_doc)
     return redirect(url_for('index'))
 
 @app.route("/annee", methods=['GET'])
@@ -93,8 +101,7 @@ def annee():
     for dictMatieres in listeMatieres:
         for value in dictMatieres.items():
             listerecherche.append(value[1])
-
-    liste = rechercheListePDF(listerecherche, annee)
+    liste = rechercheListePDF(listerecherche, str(annee))
     # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
     return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres)

@@ -1,8 +1,6 @@
 body {
-  height: 100vh;
-  width: 100vw;
-  color: var(--dark-col2);
-  background: var(--light-col1);
+  font-family: 'Montserrat', sans-serif;
+  width : 100vw;
   margin: 0;
 }
 
@@ -13,6 +11,20 @@ header {
   padding: 0%;
   background-color: var(--dark-col1);
   align-items: center;
+}
+
+.centre {
+  display: flex;
+  background: var(--light-col1);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 95vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .logo {
@@ -44,7 +56,6 @@ header {
 }
 
 .box {
-  font-family: 'Montserrat', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,43 +100,60 @@ a:link, a:visited {
   text-decoration: none;
 }
 
-#listeDocu #etiquette:hover {
+#etiquette:hover {
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
   transition: box-shadow 0.2s;
 }
 
+.scroll {
+  width: 100vw;
+  height: 95vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+}
+
 #listeDocu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
   list-style-type: none;
   margin: 0;
+  margin-top: 5vh;
   padding: 0;
+  width: 100vw;
   overflow: hidden;
 }
 
 #etiquette {
   background-color: white;
-  margin: 2vw;
-  margin-left: 13vw;
-  margin-right: 13vw;
+  margin: 5vh;
+  margin-top: 0;
+  width: 80vw;
   padding: 1vw;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 5px;
+  text-align: left;
   transition: box-shadow 0.1s;
 }
 
-#etiquette h2 {
-  color: var(--dark-col2);
-  font-family: 'Yeseva One', cursive;
-  margin : 0;
+h2 {
+  color: var(--dark-col1);
+  font-size: large;
+  margin: 0;
+  margin-bottom: 1vh;
   padding: 0;
   font-size: 3vh;
 }
 
-#etiquette h3 {
-  font-family: 'Montserrat', sans-serif;
+h3 {
+  color: var(--dark-col1);
   margin:0;
   padding:0;
   font-size: 2vh;
-  
 }
 
 .deroulant{
@@ -136,14 +164,6 @@ a:link, a:visited {
   justify-content: right;
   padding : 2vw;
   color :var(--light-col1);
-}
-
-.material-symbols-outlined {
-font-variation-settings:
-'FILL' 0,
-'wght' 400,
-'GRAD' 0,
-'opsz' 48
 }
 
 /* Navbar styling */
@@ -226,4 +246,3 @@ font-variation-settings:
 .navbar:hover .navbar-links {
   display: block;
 }
-

@@ -45,10 +45,10 @@ def rechercheListePDF(listeTags, intersection=None):
             listeResult.append(myresult)
     else:
         # same research but the tag intersection must be a tag of the document
+        #documents with tag "Autre" are taken into account
         for tag in listeTags:
-            sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s)) AND id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
-            val = (tag, intersection)
-
+            sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s)) AND id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like 'Autre'))"
+            val = (tag,)
             mycursor.execute(sql, val)
             # Fetching all pdf
             myresult = mycursor.fetchall()
@@ -79,7 +79,7 @@ def isPDF(file):
     # TODO
     return True
 
-def uploadDB(file, auteur, tags, description):
+def uploadDB(file, auteur, tags, description, annee, type_doc):
     # if not isPDF(file):
     #     return False
     db = loadDB()
@@ -90,6 +90,8 @@ def uploadDB(file, auteur, tags, description):
     titre = titre.replace(".pdf", "")
 
     tags.append(titre)
+    tags.append(annee)
+    tags.append(type_doc)
 
     # put the file into the server folder "static/pdf"
     file.save("static/pdf/" + titre + ".pdf")
