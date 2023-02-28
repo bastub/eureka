@@ -1,7 +1,5 @@
 from flask import Flask, url_for, render_template, redirect, request
-from recherchePDF import recherchePDF, afficheTout, uploadDB
-from os import getenv
-from dotenv import load_dotenv
+from recherchePDF import recherchePDF, afficheTout, uploadDB, rechercheListePDF
 from fetchPeriode import getDictPeriode
 
 
@@ -91,13 +89,16 @@ def annee():
     # liste docu = liste des documents retournés par la recherche avec les clés de nameToDb
     liste = []
     # get all the values of the keys for all periods
+    listerecherche = []
     for dictMatieres in listeMatieres:
-        for key, value in dictMatieres.items():
-            listeDocu = recherchePDF(value)
-            liste.append(listeDocu)
+        for value in dictMatieres.items():
+            listerecherche.append(value[1])
+
+    liste = rechercheListePDF(listerecherche)
     # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
     return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres)
+
 
 
 if __name__ == "__main__" :

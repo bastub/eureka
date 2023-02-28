@@ -31,7 +31,7 @@
     <div class = "centre">
       <a href="{{ url_for('tout') }}"><h1>Eur<r>ê</r>ka</h1></a>
       <form method = "POST" class="recherche" action="{{ url_for('recherche') }}">
-        <input id="searchbar" type="text" name="search" placeholder="Recherche">
+        <input autocomplete="off" id="searchbar" type="text" name="search" placeholder="Recherche...">
       </form>
     </div>
   </body>

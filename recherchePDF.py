@@ -29,6 +29,24 @@ def recherchePDF(tag):
 
     return myresult
 
+def rechercheListePDF(listeTags):
+    db = loadDB()
+    mycursor = db.cursor()
+
+    listeResult = []
+    for tag in listeTags:
+        sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+        val = (tag,)
+
+        mycursor.execute(sql, val)
+        # Fetching all pdf
+        myresult = mycursor.fetchall()
+        listeResult.append(myresult)
+    # Closing the connection
+    db.close()
+
+    return listeResult
+
 def afficheTout():
     db = loadDB()
     mycursor = db.cursor()

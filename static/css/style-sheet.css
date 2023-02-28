@@ -8,14 +8,55 @@ body {
 
 header {
   display: flex;
-  font-family: 'Yeseva One', cursive;
-  text-align: left;
-  font-size: 4vh;
   width: 100vw;
   height: 5vh;
   padding: 0%;
   background-color: var(--dark-col1);
   align-items: center;
+}
+
+.logo {
+  width: 40vw;
+  height: 5vh;
+  margin: 0;
+  padding: 0;
+}
+
+.boxes {
+  width: 40vw;
+  height: 5vh;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-top: 0;
+}
+
+.box {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-col1);
+  width: 5vw;
+  height: 5vh;
+  padding: 0;
+  margin-right: 2vw;
+  border-radius: 5px;
+  font-size: 2.5vh;
+  transition: text-shadow 0.1s;
+}
+
+.box:hover {
+  font-size: 2.7vh;
+  transition: text-shadow 0.2s;
+}
+
+.search_bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 20vw;
 }
 
 #searchbar {
