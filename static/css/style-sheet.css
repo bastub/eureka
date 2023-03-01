@@ -46,6 +46,37 @@ h1 {
   padding: 0;
 }
 
+.log,
+#logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-col1);
+    width: 5vh;
+    height: 5vh;
+    padding: 0;
+    margin:0;
+    font-size: 2.5vh;
+    transition: font-size 0.1s;
+}
+
+#logo {
+  font-family: 'Yeseva One', cursive;
+  font-size: 3vh;
+  background-color: var(--col1);
+}
+
+#logo:hover {
+  background-color: var(--light-col1);
+  color: var(--dark-col1);
+  transition: 0.2s;
+}
+
+.log:hover {
+  background-color: var(--col1);
+  transition: background-color 0.2s;
+}
+
 .boxes {
   width: 40vw;
   height: 5vh;
@@ -66,9 +97,8 @@ h1 {
   margin: 0;
 }
 
-.material-symbols-outlined, 
+#barre_nav, 
 .box {
-  font-family: 'Montserrat', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,17 +112,13 @@ h1 {
   transition: font-size 0.1s;
 }
 
+.box {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .box:hover {
   font-size: 2.7vh;
   transition: font-size 0.2s;
-}
-
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 200,
-  'GRAD' 0,
-  'opsz' 48;
 }
 
 #searchbar {

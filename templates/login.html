@@ -3,11 +3,22 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Connexion</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Yeseva+One&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="{{ url_for('static',filename='css/variables.css')}}">
-        <link rel="stylesheet" href="{{ url_for('static',filename='css/style-sheet-accueil.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/login.css')}}">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
 	<body>
+        <header>
+            <div class="logo">
+              <a href="{{ url_for('index') }}">
+                <span id="logo">ê</span>
+              </a>
+            </div>
+        </header>
+
 		<div class="login">
 			<h1>Connexion</h1>
 
