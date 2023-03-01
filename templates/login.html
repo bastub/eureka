@@ -19,21 +19,23 @@
             </div>
         </header>
 
-		<div class="login">
-			<h1>Connexion</h1>
+        <div class="centre">
+            <div class="login">
+                <h1>Connexion</h1>
 
-			<form action="{{ url_for('login') }}" method="post">
-				<label for="username">
-					<i class="fas fa-user"></i>
-				</label>
-				<input type="text" name="pseudo" placeholder="Nom d'utilisateur" id="username" required>
-				<label for="password">
-					<i class="fas fa-lock"></i>
-				</label>
-				<input type="password" name="password" placeholder="Mot de passe" id="password" required>
-				<div class="msg">{{ msg }}</div>
-				<input type="submit" value="Connexion">
-			</form>
-		</div>
+                <form action="{{ url_for('login') }}" method="post">
+                    <label for="username">
+                        <i class="fas fa-user"></i>
+                    </label>
+                    <input type="text" name="pseudo" placeholder="Nom d'utilisateur" id="username" required>
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                    </label>
+                    <input type="password" name="password" placeholder="Mot de passe" id="password" required>
+                    <div class="msg">{{ msg }}</div>
+                    <input type="submit" value="Connexion">
+                </form>
+            </div>
+        </div>
 	</body>
 </html>
