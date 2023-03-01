@@ -182,8 +182,7 @@ def logout():
     session.pop('loggedin', None)
     session.pop('pseudo', None)
 
-    # Redirige à la page de connexion
-    return redirect(url_for('login'))
+    return render_template('index.html')
 
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)
