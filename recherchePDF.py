@@ -30,45 +30,29 @@ def recherchePDF(tag):
     return myresult
 
 def rechercheListePDF(listeTags, annee="", matiere=""):
-    # A REFAIRE POUR OPTIMISER 
-    # CEST MOCHE ET CA FAIT BEAUCOUP DE REQUETES
-    # AIE
-    # TODO
     db = loadDB()
     mycursor = db.cursor()
     listeResult = []
     
     for tag in listeTags:
-        # select documents with the tag and then select documents with the annee and then select documents with the matiere
         sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
         val = (tag,)
+
+        if annee != "":
+            sql += " AND id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+            val += (annee,)
+
+        if matiere != "":
+            sql += " AND id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+            val += (matiere,)
+
         mycursor.execute(sql, val)
 
         # Fetching all pdf
         myresult = mycursor.fetchall()
-
-        if annee != "":
-            # must have the tag annee or the tag "autre"
-            sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s)) OR id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like 'autre'))"
-            val = (annee,)
-            mycursor.execute(sql, val)
-
-            # Fetching all pdf
-            myresult = mycursor.fetchall()
-
-        if matiere != "":
-            sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
-            val = (matiere,)
-            mycursor.execute(sql, val)
-
-            # Fetching all pdf
-            myresult = mycursor.fetchall()
         listeResult.append(myresult)
+    print(listeResult)
 
-        # delete doublons
-        listeResult = [list(t) for t in set(tuple(element) for element in listeResult)]
-        
-        
     # Closing the connection
     db.close()
 
