@@ -12,18 +12,13 @@
         <input type="text" name="tags" placeholder="Tags">
         <input type="text" name="description" placeholder="Description"> 
 
-        <!-- TODO -->
-        <!-- change into an input -->
-        <div class="choix">
-            <select name="matiere">
-                <option value="0">Choisir une matière</option>
-                        {% for key, val in listeMatieres.items() %}
-                            <option value="{{ val.id }}">{{ val }}</option>
-                        {% endfor %}
-            </select>
-        </div>
-        
-        
+          <input list="choix" name="choix" placeholder="Matière" autocomplete="off">
+            <datalist id="choix">
+              {% for key, val in listeMatieres.items() %}
+                <option value="{{ val }}"></option>
+              {% endfor %}
+            </datalist>
+        </input>
 
         <fieldset>
             <legend>Choix de l'année:</legend>
