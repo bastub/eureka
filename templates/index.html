@@ -17,15 +17,21 @@
   <body>
     <header>
       <div class="logo">
+        
         <a href="{{ url_for('index') }}">
           <span id="logo">ê</span>
         </a>
-        <a href="{{ url_for('login') }}">
-          <span class="material-symbols-outlined">login</span>
-        </a>
-        <a href="{{ url_for('logout') }}">
-          <span class="material-symbols-outlined">logout</span>
-        </a>
+
+        {% if (not loggedin) %}
+          <a href="{{ url_for('login') }}">
+            <span class="material-symbols-outlined">login</span>
+          </a>
+        {% else %}
+          <a href="{{ url_for('logout') }}">
+            <span class="material-symbols-outlined">logout</span>
+          </a>
+        {% endif %}
+
       </div>
       <div class="boxes">
         {% for i in range(3, 6) %}

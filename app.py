@@ -22,7 +22,7 @@ app.secret_key = 'la_cle_est_secrete'
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", loggedin = session['loggedin'])
 
 @app.route("/search", methods=['POST'])
 def recherche():
@@ -40,7 +40,7 @@ def recherche():
     listeDocu = recherchePDF(tag)
     if tag is None or tag == "":
         listeDocu = afficheTout()
-    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
+    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = session['loggedin'])
 
 @app.route("/recherche")
 def rechercheMenu():
@@ -61,7 +61,7 @@ def rechercheMenu():
     else:
         # perform search without filter
         listeDocu = recherchePDF('')
-    return render_template("menu.html", listeDocu=listeDocu, listeMatieres=nameToDb)
+    return render_template("menu.html", listeDocu=listeDocu, listeMatieres=nameToDb, loggedin = session['loggedin'])
 
 
 @app.route("/search")
@@ -76,13 +76,13 @@ def tout():
             nameToDb[key] = val
     f.close()
     listeDocu = afficheTout()
-    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb)
+    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = session['loggedin'])
 
 @app.route('/upload', methods = ['GET'])
 def home():
 
     # Vérifie que l'utilisateur est connecté
-    if 'loggedin' in session:
+    if session['loggedin']:
         mat = []
         for i in range(3, 6):
             mat.append(getDictPeriode(i))
@@ -116,9 +116,7 @@ def uploadPost():
     annee = request.form['annee']
     type_doc = request.form['type_doc']
 
-    matiere = request.form['choix']
-
-    uploadDB(file, auteur, tags, description, annee, type_doc, matiere)
+    uploadDB(file, auteur, tags, description, annee, type_doc)
     return redirect(url_for('index'))
 
 @app.route("/annee", methods=['GET'])
@@ -139,7 +137,7 @@ def annee():
     liste = rechercheListePDF(listerecherche, str(annee), matiere)
     # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
-    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee)
+    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = session['loggedin'])
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -174,17 +172,17 @@ def login():
 
 
     msg = "Nom d'utilisateur ou mot de passe invalide."
-
+ 
     return render_template('login.html', msg = msg)
 
 @app.route('/logout')
 def logout():
 
     # Supprime les données de session
-    session.pop('loggedin', None)
+    session['loggedin'] = False
     session.pop('pseudo', None)
 
-    return render_template('index.html')
+    return render_template('index.html', loggedin = session['loggedin'])
 
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)
