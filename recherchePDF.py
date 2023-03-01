@@ -51,7 +51,6 @@ def rechercheListePDF(listeTags, annee="", matiere=""):
         # Fetching all pdf
         myresult = mycursor.fetchall()
         listeResult.append(myresult)
-    print(listeResult)
 
     # Closing the connection
     db.close()

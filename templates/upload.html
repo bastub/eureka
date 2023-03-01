@@ -11,6 +11,18 @@
         <input type="text" name="auteur" placeholder="Auteur">
         <input type="text" name="tags" placeholder="Tags">
         <input type="text" name="description" placeholder="Description"> 
+
+        <div class="choix">
+            <select name="matiere">
+                <option value="0">Choisir une matière</option>
+                        {% for key, val in listeMatieres.items() %}
+                            <option value="{{ val.id }}">{{ key }}</option>
+                        {% endfor %}
+            </select>
+        </div>
+        
+        
+
         <fieldset>
             <legend>Choix de l'année:</legend>
         

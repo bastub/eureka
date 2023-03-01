@@ -83,7 +83,18 @@ def home():
 
     # Vérifie que l'utilisateur est connecté
     if 'loggedin' in session:
-        return render_template('upload.html', username = session['pseudo'])
+        mat = []
+        for i in range(3, 6):
+            mat.append(getDictPeriode(i))
+
+        # create dictionnary from mat
+        dict = {}
+        for i in range(0, len(mat)):
+            for j in range(0, len(mat[i])):
+                dict.update(mat[i][j])
+
+
+        return render_template('upload.html', username = session['pseudo'], listeMatieres=dict)
 
     return redirect(url_for('login'))
 
