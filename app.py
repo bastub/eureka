@@ -168,7 +168,7 @@ def login():
             session['loggedin'] = True
             session['pseudo'] = utilisateur[0]
 
-            return render_template('upload.html', username = session['pseudo'])
+            return redirect(url_for('home'))
 
 
     msg = "Nom d'utilisateur ou mot de passe invalide."
