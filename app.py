@@ -20,15 +20,16 @@ app = Flask(__name__)
 
 app.secret_key = 'la_cle_est_secrete'
 
+def loggedin() :
+    if (session.__contains__('loggedin')) :
+        return session['loggedin']
+    else :
+        return False
+
 @app.route("/")
 def index():
 
-    if (session.__contains__('loggedin')) :
-        loggedin = session['loggedin']
-    else :
-        loggedin = False
-
-    return render_template("index.html", loggedin = loggedin)
+    return render_template("index.html", loggedin = loggedin())
 
 @app.route("/search", methods=['POST'])
 def recherche():
@@ -47,12 +48,7 @@ def recherche():
     if tag is None or tag == "":
         listeDocu = afficheTout()
 
-    if (session.__contains__('loggedin')) :
-        loggedin = session['loggedin']
-    else :
-        loggedin = False
-
-    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = loggedin)
+    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = loggedin())
 
 @app.route("/recherche")
 def rechercheMenu():
@@ -74,12 +70,7 @@ def rechercheMenu():
         # perform search without filter
         listeDocu = recherchePDF('')
 
-    if (session.__contains__('loggedin')) :
-        loggedin = session['loggedin']
-    else :
-        loggedin = False
-
-    return render_template("menu.html", listeDocu=listeDocu, listeMatieres=nameToDb, loggedin = loggedin)
+    return render_template("menu.html", listeDocu=listeDocu, listeMatieres=nameToDb, loggedin = loggedin())
 
 
 @app.route("/search")
@@ -95,12 +86,7 @@ def tout():
     f.close()
     listeDocu = afficheTout()
 
-    if (session.__contains__('loggedin')) :
-        loggedin = session['loggedin']
-    else :
-        loggedin = False
-
-    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = loggedin)
+    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = loggedin())
 
 @app.route('/upload', methods = ['GET'])
 def home():
@@ -118,7 +104,7 @@ def home():
                 dict.update(mat[i][j])
 
 
-        return render_template('upload.html', username = session['pseudo'], listeMatieres=dict)
+        return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin())
 
     return redirect(url_for('login'))
 
@@ -163,12 +149,7 @@ def annee():
     # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
 
-    if (session.__contains__('loggedin')) :
-        loggedin = session['loggedin']
-    else :
-        loggedin = False
-
-    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin)
+    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin())
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
