@@ -87,8 +87,8 @@ r::selection {
 }
 
 #searchbar:focus {
-    border: 2px solid var(--dark-col1);
-    transition: border 0.2s;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 24px;
+    transition: box-shadow 0.2s;
 }
 
 a:link {
