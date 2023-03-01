@@ -18,7 +18,7 @@ def recherchePDF(tag):
     db = loadDB()
     mycursor = db.cursor()
 
-    sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
     val = (tag,)
 
     mycursor.execute(sql, val)
@@ -35,7 +35,7 @@ def rechercheListePDF(listeTags, annee="", matiere=""):
     listeResult = []
     
     for tag in listeTags:
-        sql = "SELECT titre, auteur, id_doc FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+        sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
         val = (tag,)
 
         if annee != "":
@@ -61,7 +61,7 @@ def rechercheListePDF(listeTags, annee="", matiere=""):
 def afficheTout():
     db = loadDB()
     mycursor = db.cursor()
-    sql = "SELECT titre, auteur, id_doc FROM Documents"
+    sql = "SELECT titre, auteur, id_doc, description FROM Documents"
     mycursor.execute(sql)
 
     # Fetching all pdf
