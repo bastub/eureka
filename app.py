@@ -117,9 +117,8 @@ def uploadPost():
     type_doc = request.form['type_doc']
 
     matiere = request.form['choix']
-    print(matiere)
 
-    # uploadDB(file, auteur, tags, description, annee, type_doc)
+    uploadDB(file, auteur, tags, description, annee, type_doc, matiere)
     return redirect(url_for('index'))
 
 @app.route("/annee", methods=['GET'])

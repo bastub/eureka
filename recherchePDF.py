@@ -78,7 +78,7 @@ def isPDF(file):
     # TODO
     return True
 
-def uploadDB(file, auteur, tags, description, annee, type_doc):
+def uploadDB(file, auteur, tags, description, annee, type_doc, matiere):
     # if not isPDF(file):
     #     return False
     db = loadDB()
@@ -91,7 +91,7 @@ def uploadDB(file, auteur, tags, description, annee, type_doc):
     tags.append(titre)
     tags.append(annee)
     tags.append(type_doc)
-
+    tags.append(matiere)
     # put the file into the server folder "static/pdf"
     file.save("static/pdf/" + titre + ".pdf")
 
