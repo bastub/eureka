@@ -22,7 +22,13 @@ app.secret_key = 'la_cle_est_secrete'
 
 @app.route("/")
 def index():
-    return render_template("index.html", loggedin = session['loggedin'])
+
+    if (session.__contains__('loggedin')) :
+        loggedin = session['loggedin']
+    else :
+        loggedin = False
+
+    return render_template("index.html", loggedin = loggedin)
 
 @app.route("/search", methods=['POST'])
 def recherche():
@@ -40,7 +46,13 @@ def recherche():
     listeDocu = recherchePDF(tag)
     if tag is None or tag == "":
         listeDocu = afficheTout()
-    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = session['loggedin'])
+
+    if (session.__contains__('loggedin')) :
+        loggedin = session['loggedin']
+    else :
+        loggedin = False
+
+    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = loggedin)
 
 @app.route("/recherche")
 def rechercheMenu():
@@ -61,7 +73,13 @@ def rechercheMenu():
     else:
         # perform search without filter
         listeDocu = recherchePDF('')
-    return render_template("menu.html", listeDocu=listeDocu, listeMatieres=nameToDb, loggedin = session['loggedin'])
+
+    if (session.__contains__('loggedin')) :
+        loggedin = session['loggedin']
+    else :
+        loggedin = False
+
+    return render_template("menu.html", listeDocu=listeDocu, listeMatieres=nameToDb, loggedin = loggedin)
 
 
 @app.route("/search")
@@ -76,7 +94,13 @@ def tout():
             nameToDb[key] = val
     f.close()
     listeDocu = afficheTout()
-    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = session['loggedin'])
+
+    if (session.__contains__('loggedin')) :
+        loggedin = session['loggedin']
+    else :
+        loggedin = False
+
+    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = loggedin)
 
 @app.route('/upload', methods = ['GET'])
 def home():
@@ -138,7 +162,13 @@ def annee():
     liste = rechercheListePDF(listerecherche, str(annee), matiere)
     # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
-    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = session['loggedin'])
+
+    if (session.__contains__('loggedin')) :
+        loggedin = session['loggedin']
+    else :
+        loggedin = False
+
+    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin)
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -179,11 +209,11 @@ def login():
 @app.route('/logout')
 def logout():
 
-    # Supprime les données de session
-    session['loggedin'] = False
+    # Supprime les données de session*
+    session.pop('loggedin', None)
     session.pop('pseudo', None)
 
-    return render_template('index.html', loggedin = session['loggedin'])
+    return render_template('index.html', loggedin = False)
 
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)

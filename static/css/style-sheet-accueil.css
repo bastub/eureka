@@ -13,7 +13,7 @@ header {
     align-items: center;
 }
 
-.material-symbols-outlined,
+.log,
 #logo {
     display: flex;
     align-items: center;
@@ -27,10 +27,10 @@ header {
     transition: font-size 0.1s;
 }
 
-.material-symbols-outlined:hover {
+.log:hover {
     background-color: var(--col1);
     transition: background-color 0.2s;
-}
+  }
 
 #logo {
     font-family: 'Yeseva One', cursive;
@@ -42,7 +42,7 @@ header {
     background-color: var(--light-col1);
     color: var(--dark-col1);
     transition: 0.2s;
-  }
+}
 
 .centre {
     display: flex;

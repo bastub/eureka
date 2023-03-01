@@ -194,12 +194,20 @@ h2 {
   color: var(--dark-col1);
   font-size: large;
   margin: 0;
-  margin-bottom: 1vh;
+  
   padding: 0;
   font-size: 3vh;
 }
 
 h3 {
+  color: var(--col1);
+  margin:0;
+  margin-bottom: 1vh;
+  padding:0;
+  font-size: 1.5vh;
+}
+
+h4 {
   color: var(--dark-col1);
   margin:0;
   padding:0;

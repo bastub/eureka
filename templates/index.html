@@ -23,14 +23,23 @@
         </a>
 
         {% if (not loggedin) %}
-          <a href="{{ url_for('login') }}">
-            <span class="material-symbols-outlined">login</span>
-          </a>
-        {% else %}
-          <a href="{{ url_for('logout') }}">
-            <span class="material-symbols-outlined">logout</span>
-          </a>
-        {% endif %}
+              <a href="{{ url_for('login') }}">
+                <div class = "log">
+                    <span class="material-symbols-outlined">login</span>
+                </div>
+              </a>
+              {% else %}
+              <a href="{{ url_for('logout') }}">
+                <div class = "log">
+                    <span class="material-symbols-outlined">logout</span>
+                </div>
+              </a>
+              <a href="{{ url_for('home') }}">
+                <div class = "log">
+                    <span class="material-symbols-outlined">upload</span>
+                </div>
+              </a>
+              {% endif %}
 
       </div>
       <div class="boxes">
