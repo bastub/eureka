@@ -16,7 +16,7 @@
             <select name="matiere">
                 <option value="0">Choisir une matière</option>
                         {% for key, val in listeMatieres.items() %}
-                            <option value="{{ val.id }}">{{ key }}</option>
+                            <option value="{{ val.id }}">{{ val }}</option>
                         {% endfor %}
             </select>
         </div>
