@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Yeseva+One&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Yeseva+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="{{ url_for('static',filename='css/variables.css')}}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/upload.css')}}">
+    <script src="{{ url_for('static',filename='js/upload.js')}}" defer></script>
     
 </head>
 
@@ -20,50 +21,73 @@
             <a href="{{ url_for('index') }}">
                 <span id="logo">ê</span>
               </a>
-              <a href="{{ url_for('logout') }}">
-                <div class = "log">
-                    <span class="material-symbols-outlined">logout</span>
-                </div>
-              </a>
+        </div>
+        <div class="logs">
+          {% if (not loggedin) %}
+            <a href="{{ url_for('login') }}">
+              <div class = "log">
+                  <span class="material-symbols-outlined">login</span>
+              </div>
+            </a>
+          {% else %}
+            <a href="{{ url_for('home') }}">
+              <div class = "log">
+                  <span class="material-symbols-outlined">upload</span>
+              </div>
+            </a>
+            <a href="{{ url_for('logout') }}">
+              <div class = "log">
+                  <span class="material-symbols-outlined">logout</span>
+              </div>
+            </a>
+          {% endif %}
         </div>
     </header>
     <div class = "centre">
+      <h1>Upload</h1>
       <form action="{{ url_for('uploadPost') }}" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="file">
+        <div id="depot">
+          <label for="fichier" class="bouton">Sélectionner un fichier</label>
+          <input type="file" id="fichier" name="file" accept=".pdf" required>
+          
+          <div class="msgFichier">
+            <p>Aucun fichier sélectionné</p>
+          </div>
+        </div>
         
         <div id="champs">
-          <input type="text" name="titre" placeholder="Titre" class="champ"> 
+          <input type="text" name="titre" placeholder="Titre" class="champ" required> 
           
-          <input type="text" name="auteur" placeholder="Auteur" class="champ">
+          <input type="text" name="auteur" placeholder="Auteur" class="champ" required>
           
-          <input type="text" name="tags" placeholder="Tags" class="champ">
+          <input type="text" name="tags" placeholder="Tags" class="champ" required>
           
-          <input type="text-area" name="description" placeholder="Description" class="champ"> 
+          <input type="text-area" name="description" placeholder="Description" class="champ" required> 
         </div>
         
         <div id="selections">
-          <select name="matiere">
+          <select name="matiere" id="grandSelect" required>
               {% for key, val in listeMatieres.items() %}
                 <option value="{{ val }}">{{ val }}</option>
               {% endfor %}
           </select>
 
-          <select name="annee">
+          <select name="annee" classe="petitSelect" required>
             <option value="3">3A</option>
             <option value="4">4A</option>
             <option value="5">5A</option>
             <option value="6">Autre</option>
           </select>
 
-          <select name="type_doc">
+          <select name="type_doc" classe="petitSelect" required>
             <option value="7">CM</option>
             <option value="8">TD</option>
             <option value="9">Autre</option>
           </select>
         </div>
-
-        <input type="submit" value="Upload">
+        <div id="boutonUpload">
+          <input type="submit" value="Upload" class="bouton">
+        </div>
       </form>
     </div>
   </body>
