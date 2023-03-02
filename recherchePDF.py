@@ -32,7 +32,7 @@ def rechercheListePDF(listeTags, annee="", matiere=""):
     listeResult = []
     
     for tag in listeTags:
-        sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc = (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
+        sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
         val = (tag,)
 
         if annee != "":
