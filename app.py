@@ -13,11 +13,9 @@ def loadDB():
         password = getenv("password_db"),
         database = "eureka"
     )
-
     return db
 
 app = Flask(__name__)
-
 app.secret_key = 'la_cle_est_secrete'
 
 def loggedin() :
@@ -32,97 +30,48 @@ def index():
 
 @app.route("/search", methods=['POST'])
 def recherche():
-    nameToDb = {}
-    with open("nameToDb.txt", "r") as f:
-        for line in f:
-            (key, val) = line.split(":")
-            val = val[:-1] if val[-1] == "\n" else val
-            # remove space at the beginning of val
-            val = val[1:] if val[0] == " " else val
-            val.encode("utf-8")
-            nameToDb[key] = val
-    f.close()
     tag = request.form['search']
-    listeDocu = recherchePDF(tag)
-    if tag is None or tag == "":
-        listeDocu = afficheTout()
-
-    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = loggedin())
+    if tag is not None and tag != "":
+        return render_template("menu.html", listeDocu = recherchePDF(tag), loggedin = loggedin())
+    return render_template("menu.html", listeDocu = afficheTout(), loggedin = loggedin())
 
 @app.route("/recherche")
 def rechercheMenu():
-    nameToDb = {}
-    with open("nameToDb.txt", "r") as f:
-        for line in f:
-            (key, val) = line.split(":")
-            val = val[:-1] if val[-1] == "\n" else val
-            # remove space at the beginning of val
-            val = val[1:] if val[0] == " " else val
-            val.encode("utf-8")
-            nameToDb[key] = val
-    f.close()
     matiere = request.args.get('matiere')
     if matiere:
-        # perform search with filter
-        listeDocu = recherchePDF(matiere)
-    else:
-        # perform search without filter
-        listeDocu = recherchePDF('')
-
-    return render_template("menu.html", listeDocu=listeDocu, listeMatieres=nameToDb, loggedin = loggedin())
+        return render_template("menu.html", listeDocu = rechercheListePDF(matiere), loggedin = loggedin())
+    return render_template("menu.html", listeDocu=recherchePDF(''), loggedin = loggedin())
 
 
 @app.route("/search")
 def tout():
-    nameToDb = {}
-    with open("nameToDb.txt", "r") as f:
-        for line in f:
-            (key, val) = line.split(":")
-            val = val[:-1] if val[-1] == "\n" else val
-            # remove space at the beginning of val
-            val = val[1:] if val[0] == " " else val
-            nameToDb[key] = val
-    f.close()
-    listeDocu = afficheTout()
-
-    return render_template("menu.html", listeDocu = listeDocu, listeMatieres = nameToDb, loggedin = loggedin())
+    return render_template("menu.html", listeDocu = afficheTout(), loggedin = loggedin())
 
 @app.route('/upload', methods = ['GET'])
 def home():
-
-    # Vérifie que l'utilisateur est connecté
     if session['loggedin']:
         mat = []
         for i in range(3, 6):
             mat.append(getDictPeriode(i))
-
-        # create dictionnary from mat
         dict = {}
         for i in range(0, len(mat)):
             for j in range(0, len(mat[i])):
                 dict.update(mat[i][j])
-
-
         return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin())
-
     return redirect(url_for('login'))
 
 @app.route("/upload", methods=['POST'])
 def uploadPost():
     if not session['loggedin']:
         return redirect(url_for('login'))
+    
     file = request.files['file']
-    auteur = request.form['auteur']
-    tags = request.form['tags']
-    description = request.form['description']
-    titre = request.form['titre']
-
+    auteur, tags, description, titre = request.form['auteur'], request.form['tags'], request.form['description'], request.form['titre']
+    
     if titre is not None and titre != "":
         file.filename = titre + ".pdf"
     
-    annee = request.form['annee']
-    type_doc = request.form['type_doc']
-    matiere = request.form['choix']
+    annee, type_doc, matiere = request.form['annee'], request.form['type_doc'], request.form['choix']
 
     uploadDB(file, auteur, tags, description, annee, type_doc, matiere)
     return redirect(url_for('index'))
@@ -133,17 +82,13 @@ def annee():
     matiere = request.args.get('matiere')
     if matiere is None:
         matiere = ""
-    # Get the list of dictionaries with subjects for each period
     listeMatieres = getDictPeriode(annee)
-    # liste docu = liste des documents retournés par la recherche avec les clés de nameToDb
     liste = []
-    # get all the values of the keys for all periods
     listerecherche = []
     for dictMatieres in listeMatieres:
         for value in dictMatieres.items():
             listerecherche.append(value[1])
     liste = rechercheListePDF(listerecherche, str(annee), matiere)
-    # merge all the lists in one
     liste = [item for sublist in liste for item in sublist]
 
     return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin())
@@ -171,18 +116,14 @@ def login():
         # Récupère le résultat de la requête
         utilisateur = mycursor.fetchone()
 
-        # Si le compte existe
         if utilisateur:
             # Crée les données de session
             session['loggedin'] = True
             session['pseudo'] = utilisateur[0]
-
             return redirect(url_for('home'))
 
         else :
-            # Affiche un message d'erreur
             msg = "Nom d'utilisateur ou mot de passe invalide."
-    
     return render_template('login.html', msg = msg)
 
 @app.route('/logout')
