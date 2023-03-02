@@ -78,36 +78,34 @@ def isPDF(file):
     # TODO
     return True
 
-def uploadDB(file, auteur, tags, description, annee, type_doc, matiere):
+def uploadDB(file, auteur, tags, description, annee, type_doc, matiere = ""):
     # if not isPDF(file):
     #     return False
     db = loadDB()
     tags = tags.split(";")
     tags = [tag.strip() for tag in tags]
-
     titre = file.filename.replace("_", " ")
     titre = titre.replace(".pdf", "")
 
     tags.append(titre)
     tags.append(annee)
     tags.append(type_doc)
-    tags.append(matiere)
+    tags.append(matiere) if matiere != "" else None
     # put the file into the server folder "static/pdf"
     file.save("static/pdf/" + titre + ".pdf")
+    tags = [tag.lower() for tag in tags]
+    tags = list(dict.fromkeys(tags))
+    tags = [tag for tag in tags if tag != ""]
 
-    cpt = getenv("cpt")
 
     mycursor = db.cursor()
 
-    # use cpt as id value
     sql = "INSERT INTO Documents (titre, auteur, description) VALUES (%s, %s, %s)"
     val = (titre, auteur, description)
 
     mycursor.execute(sql, val)
 
     db.commit()
-
-    id_doc = cpt
 
     for tag in tags:
         # check if tag in database else create it
@@ -121,7 +119,7 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere):
             mycursor.execute(sql, val)
             db.commit()
 
-        sql = "SELECT id_doc FROM Documents WHERE titre = %s"
+        sql = "SELECT id_doc FROM Documents WHERE titre = %s ORDER BY id_doc DESC LIMIT 1"
         val = (titre,)
         mycursor.execute(sql, val)
         myresult = mycursor.fetchall()
