@@ -10,21 +10,18 @@ def loadDB():
         password = getenv("password_db"),
         database = "eureka"
     )
-
     return db
 
 
 def recherchePDF(tag):
     db = loadDB()
     mycursor = db.cursor()
-
-    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+    tag = "%" + tag + "%"
+    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
     val = (tag,)
 
     mycursor.execute(sql, val)
-    # Fetching all pdf
     myresult = mycursor.fetchall()
-    # Closing the connection
     db.close()
 
     return myresult
@@ -47,12 +44,9 @@ def rechercheListePDF(listeTags, annee="", matiere=""):
             val += (matiere,)
 
         mycursor.execute(sql, val)
-
-        # Fetching all pdf
         myresult = mycursor.fetchall()
         listeResult.append(myresult)
 
-    # Closing the connection
     db.close()
 
     return listeResult
@@ -62,11 +56,7 @@ def afficheTout():
     mycursor = db.cursor()
     sql = "SELECT titre, auteur, id_doc, description FROM Documents"
     mycursor.execute(sql)
-
-    # Fetching all pdf
     myresult = mycursor.fetchall()
-
-    # Closing the connection
     db.close()
 
     return myresult
@@ -93,10 +83,10 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere = ""):
     tags.append(matiere) if matiere != "" else None
     # put the file into the server folder "static/pdf"
     file.save("static/pdf/" + titre + ".pdf")
+
     tags = [tag.lower() for tag in tags]
     tags = list(dict.fromkeys(tags))
     tags = [tag for tag in tags if tag != ""]
-
 
     mycursor = db.cursor()
 
@@ -131,8 +121,6 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere = ""):
         mycursor.execute(sql, val)
 
     db.commit()
-
-    # Closing the connection
     db.close()
 
 def deletePDF(titre):
