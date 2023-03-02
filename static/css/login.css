@@ -72,3 +72,50 @@ a:link {
     width: 25vw;
     height: 25vh;
 }
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 4vh;
+    font-weight: 700;
+    color: var(--dark-col1);
+}
+
+.champ {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    width: 20vw;
+    height: 5vh;
+}
+
+.icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-col1);
+    width: 4vh;
+    height: 4vh;
+    padding: 0;
+    margin:0;
+    font-size: 4vh;
+    transition: font-size 0.1s;
+}
+
+#password, #username {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15vw;
+    height: 4vh;
+    border: none;
+    border-bottom: 1px solid var(--dark-col1);
+    background-color: var(--light-col1);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vh;
+    color: var(--dark-col1);
+    transition: font-size 0.1s;
+    outline: None;
+}

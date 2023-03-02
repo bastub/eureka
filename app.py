@@ -28,7 +28,6 @@ def loggedin() :
 
 @app.route("/")
 def index():
-
     return render_template("index.html", loggedin = loggedin())
 
 @app.route("/search", methods=['POST'])
@@ -118,8 +117,8 @@ def uploadPost():
     auteur = request.form['auteur']
     tags = request.form['tags']
     description = request.form['description']
-
     titre = request.form['titre']
+
     if titre is not None and titre != "":
         file.filename = titre + ".pdf"
     
