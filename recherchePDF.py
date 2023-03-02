@@ -99,7 +99,7 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere = ""):
 
     for tag in tags:
         # check if tag in database else create it
-        sql = "SELECT * FROM Tags WHERE nom = %s"
+        sql = "SELECT id_tag FROM Tags WHERE nom = %s"
         val = (tag,)
         mycursor.execute(sql, val)
         myresult = mycursor.fetchall()
