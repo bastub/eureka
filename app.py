@@ -110,10 +110,8 @@ def home():
 
 @app.route("/upload", methods=['POST'])
 def uploadPost():
-    # passw = request.form['password']
-    # load_dotenv()
-    # if passw != getenv("password_db"):
-    #     return redirect(url_for('getUpload'))
+    if not session['loggedin']:
+        return redirect(url_for('login'))
     file = request.files['file']
     auteur = request.form['auteur']
     tags = request.form['tags']
