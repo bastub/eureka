@@ -29,7 +29,7 @@
                                 person
                             </span>
                         </div>    
-                        <input type="text" name="pseudo" placeholder="Nom d'utilisateur" id="username" required>
+                        <input ondrop="return false" autocomplete="off" type="text" name="pseudo" placeholder="Nom d'utilisateur" id="username" required>
                     </div>
                     <div class="champ">
                         <div class="icone">
@@ -37,7 +37,7 @@
                                 lock
                             </span>
                         </div>
-                        <input type="password" name="password" placeholder="Mot de passe" id="password" required>
+                        <input ondrop="return false" autocomplete="off" type="password" name="password" placeholder="Mot de passe" id="password" required>
                     </div>
                     <div class="msg">{{ msg }}</div>
                     <input type="submit" value="Connexion">

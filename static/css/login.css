@@ -69,8 +69,10 @@ a:link {
     align-items: center;
     justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
-    width: 25vw;
-    height: 25vh;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
 }
 
 h1 {
@@ -116,6 +118,16 @@ h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 2vh;
     color: var(--dark-col1);
-    transition: font-size 0.1s;
+    transition: border-bottom 0.1s;
     outline: None;
+}
+
+#password:hover, #username:hover {
+    border-bottom: 1px solid var(--col1);
+    transition: border-bottom 0.2s;
+}
+
+#password:focus, #username:focus {
+    border-bottom: 3px solid var(--col1);
+    transition: border-bottom 50ms;
 }

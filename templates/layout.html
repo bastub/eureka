@@ -42,7 +42,7 @@
         </div>
         <div class ="search_bar">
             <form method = "POST" class="recherche" action="{{ url_for('recherche') }}">
-                <input id="searchbar" type="text" name="search" placeholder="Recherche...">
+                <input ondrop="return false" autocomplete="off" id="searchbar" type="text" name="search" placeholder="Recherche...">
             </form>
         </div>  
         <div class="boxes">

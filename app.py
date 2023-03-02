@@ -179,9 +179,10 @@ def login():
 
             return redirect(url_for('home'))
 
-
-    msg = "Nom d'utilisateur ou mot de passe invalide."
- 
+        else :
+            # Affiche un message d'erreur
+            msg = "Nom d'utilisateur ou mot de passe invalide."
+    
     return render_template('login.html', msg = msg)
 
 @app.route('/logout')
