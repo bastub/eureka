@@ -121,9 +121,6 @@ def login():
         utilisateur = utilisateur[0]
         utilisateur = utilisateur.encode('utf-8')
         utilisateur = bcrypt.hashpw(utilisateur, salt)
-        print("password: ", password)
-        print("en vrai:", utilisateur)
-
         if utilisateur == password:
             # Crée les données de session
             session['loggedin'] = True
