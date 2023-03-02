@@ -4,6 +4,8 @@ from fetchPeriode import getDictPeriode
 import mysql.connector
 from dotenv import load_dotenv
 from os import getenv
+from passlib.hash import sha256_crypt
+import bcrypt
 load_dotenv()
 
 def loadDB():
@@ -105,18 +107,24 @@ def login():
         pseudo = request.form['pseudo']
         password = request.form['password']
 
+        password = password.encode('utf-8')
+        salt = bcrypt.gensalt()
+        password = bcrypt.hashpw(password, salt)
+        
         db = loadDB()
         mycursor = db.cursor()
-
-        # Vérifie que le compte existe
-        sql = "SELECT * FROM Utilisateurs WHERE Pseudo = %s AND Password = %s"
-        val = (pseudo, password,)
+        sql = "SELECT Password FROM Utilisateurs WHERE Pseudo = %s"
+        val = (pseudo,)
         mycursor.execute(sql, val)
-        
         # Récupère le résultat de la requête
         utilisateur = mycursor.fetchone()
+        utilisateur = utilisateur[0]
+        utilisateur = utilisateur.encode('utf-8')
+        utilisateur = bcrypt.hashpw(utilisateur, salt)
+        print("password: ", password)
+        print("en vrai:", utilisateur)
 
-        if utilisateur:
+        if utilisateur == password:
             # Crée les données de session
             session['loggedin'] = True
             session['pseudo'] = utilisateur[0]
