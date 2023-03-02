@@ -10,21 +10,18 @@ def loadDB():
         password = getenv("password_db"),
         database = "eureka"
     )
-
     return db
 
 
 def recherchePDF(tag):
     db = loadDB()
     mycursor = db.cursor()
-
-    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+    tag = "%" + tag + "%"
+    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
     val = (tag,)
 
     mycursor.execute(sql, val)
-    # Fetching all pdf
     myresult = mycursor.fetchall()
-    # Closing the connection
     db.close()
 
     return myresult
@@ -35,15 +32,18 @@ def rechercheListePDF(listeTags, annee="", matiere=""):
     listeResult = []
     
     for tag in listeTags:
-        sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+        tag = "%" + tag + "%"
+        sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
         val = (tag,)
 
         if annee != "":
-            sql += " AND id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+            annee = "%" + annee + "%"
+            sql += " AND id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
             val += (annee,)
 
         if matiere != "":
-            sql += " AND id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag = (SELECT id_tag FROM Tags WHERE nom like %s))"
+            matiere = "%" + matiere + "%"
+            sql += " AND id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
             val += (matiere,)
 
         mycursor.execute(sql, val)
@@ -96,7 +96,6 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere = ""):
     tags = [tag.lower() for tag in tags]
     tags = list(dict.fromkeys(tags))
     tags = [tag for tag in tags if tag != ""]
-
 
     mycursor = db.cursor()
 
