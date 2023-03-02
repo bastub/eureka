@@ -4,7 +4,6 @@ from fetchPeriode import getDictPeriode
 import mysql.connector
 from dotenv import load_dotenv
 from os import getenv
-from passlib.hash import sha256_crypt
 import bcrypt
 load_dotenv()
 
