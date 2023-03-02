@@ -72,7 +72,7 @@ def uploadPost():
     if titre is not None and titre != "":
         file.filename = titre + ".pdf"
     
-    annee, type_doc, matiere = request.form['annee'], request.form['type_doc'], request.form['choix']
+    annee, type_doc, matiere = request.form['annee'], request.form['type_doc'], request.form['matiere']
 
     uploadDB(file, auteur, tags, description, annee, type_doc, matiere)
     return redirect(url_for('index'))
