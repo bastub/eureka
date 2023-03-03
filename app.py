@@ -31,7 +31,7 @@ def loggedin() :
 
 @app.route("/")
 def index():
-    return render_template("index.html", loggedin = loggedin())
+    return render_template("index.html", listeAnnees = listMatMenu, loggedin = loggedin())
 
 @app.route("/search", methods=['POST'])
 def recherche():
@@ -47,20 +47,19 @@ def recherche():
         docs = [item for items, c in Counter(docs).most_common()
                                       for item in [items] * c]
         docs = list(dict.fromkeys(docs))
-        return render_template("menu.html", listeDocu = docs, loggedin = loggedin())
-    return render_template("menu.html", listeDocu = afficheTout(), loggedin = loggedin())
+        return render_template("menu.html", listeDocu = docs, listeAnnees = listMatMenu, loggedin = loggedin())
+    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, loggedin = loggedin())
 
 @app.route("/recherche")
 def rechercheMenu():
     matiere = request.args.get('matiere')
     if matiere:
-        return render_template("menu.html", listeDocu = rechercheListePDF(matiere), loggedin = loggedin())
-    return render_template("menu.html", listeDocu=recherchePDF(''), loggedin = loggedin())
-
+        return render_template("menu.html", listeDocu = rechercheListePDF(matiere), listeAnnees = listMatMenu, loggedin = loggedin())
+    return render_template("menu.html", listeDocu=recherchePDF(''), listeAnnees = listMatMenu, loggedin = loggedin())
 
 @app.route("/search")
 def tout():
-    return render_template("menu.html", listeDocu = afficheTout(), loggedin = loggedin())
+    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, loggedin = loggedin())
 
 @app.route('/upload', methods = ['GET'])
 def home():
