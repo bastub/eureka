@@ -1,13 +1,15 @@
 from flask import Flask, session, url_for, render_template, redirect, request
 from recherchePDF import recherchePDF, afficheTout, uploadDB, rechercheListePDF
-from fetchPeriode import getDictPeriode
+from fetchPeriode import getDictPeriode, listeMatAnnees
 import mysql.connector
 from dotenv import load_dotenv
 from os import getenv
 import bcrypt
-
 from collections import Counter
+
+
 load_dotenv()
+listMatMenu = listeMatAnnees()
 
 def loadDB():
     db = mysql.connector.connect(
