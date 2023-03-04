@@ -42,7 +42,6 @@ def recherche():
         docs = []
         for t in tag:
             docs.append(recherchePDF(str(t)))
-        print(docs)
         docs = [item for sublist in docs for item in sublist]
         docs = [item for items, c in Counter(docs).most_common()
                                       for item in [items] * c]
@@ -114,12 +113,8 @@ def login():
 
     # Vérifie que le pseudo et le mot de passe sont corrects
     if request.method == 'POST' and 'pseudo' in request.form and 'password' in request.form:
-        
-        # Crée les variables pour faciliter la manipulation
         pseudo = request.form['pseudo']
-        password = request.form['password']
-
-        password = password.encode('utf-8')
+        password = (request.form['password']).encode('utf-8')
         salt = bcrypt.gensalt()
         password = bcrypt.hashpw(password, salt)
         
@@ -130,7 +125,10 @@ def login():
         mycursor.execute(sql, val)
         # Récupère le résultat de la requête
         utilisateur = mycursor.fetchone()
-        utilisateur = utilisateur[0]
+        utilisateur = utilisateur[0] if utilisateur else None
+        if utilisateur is None:
+            msg = "Nom d'utilisateur ou mot de passe invalide."
+            return render_template('login.html', msg = msg)
         utilisateur = utilisateur.encode('utf-8')
         utilisateur = bcrypt.hashpw(utilisateur, salt)
         if utilisateur == password:
