@@ -1,6 +1,6 @@
 from flask import Flask, session, url_for, render_template, redirect, request
 from recherchePDF import recherchePDF, afficheTout, uploadDB, rechercheListePDF
-from fetchPeriode import getDictPeriode, listeMatAnnees
+from fetchPeriode import getDictAll, listeMatAnnees, getDictPeriode
 import mysql.connector
 from dotenv import load_dotenv
 from os import getenv
@@ -31,7 +31,7 @@ def loggedin() :
 
 @app.route("/")
 def index():
-    return render_template("index.html", listeAnnees = listMatMenu, loggedin = loggedin())
+    return render_template("index.html", listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
 
 @app.route("/search", methods=['POST'])
 def recherche():
@@ -47,19 +47,19 @@ def recherche():
         docs = [item for items, c in Counter(docs).most_common()
                                       for item in [items] * c]
         docs = list(dict.fromkeys(docs))
-        return render_template("menu.html", listeDocu = docs, listeAnnees = listMatMenu, loggedin = loggedin())
-    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, loggedin = loggedin())
+        return render_template("menu.html", listeDocu = docs, listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
+    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
 
 @app.route("/recherche")
 def rechercheMenu():
     matiere = request.args.get('matiere')
     if matiere:
         return render_template("menu.html", listeDocu = rechercheListePDF(matiere), listeAnnees = listMatMenu, loggedin = loggedin())
-    return render_template("menu.html", listeDocu=recherchePDF(''), listeAnnees = listMatMenu, loggedin = loggedin())
+    return render_template("menu.html", listeDocu=recherchePDF(''), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
 
 @app.route("/search")
 def tout():
-    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, loggedin = loggedin())
+    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
 
 @app.route('/upload', methods = ['GET'])
 def home():
@@ -96,10 +96,10 @@ def annee():
     matiere = request.args.get('matiere')
     if matiere is None:
         matiere = ""
-    listeMatieres = getDictPeriode(annee)
+    listeMatieres = getDictAll()
     liste = []
     listerecherche = []
-    for dictMatieres in listeMatieres:
+    for dictMatieres in listeMatieres[int(annee) - 3]:
         for value in dictMatieres.items():
             listerecherche.append(value[1])
     liste = rechercheListePDF(listerecherche, str(annee), matiere)
