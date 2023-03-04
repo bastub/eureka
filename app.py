@@ -137,7 +137,7 @@ def login():
             # Crée les données de session
             session['loggedin'] = True
             session['pseudo'] = utilisateur[0]
-            return redirect(url_for('home'))
+            return redirect(url_for('index'))
 
         else :
             msg = "Nom d'utilisateur ou mot de passe invalide."
@@ -150,7 +150,7 @@ def logout():
     session.pop('loggedin', None)
     session.pop('pseudo', None)
 
-    return render_template('index.html', loggedin = False)
+    return render_template('index.html', listeMatieres = getDictAll(), loggedin = False)
 
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)
