@@ -58,6 +58,11 @@
             </div>
           </a>
         {% else %}
+        <a href="{{ url_for('supp') }}">
+          <div class = "log">
+              <span class="material-symbols-outlined">delete</span>
+          </div>
+        </a>
           <a href="{{ url_for('home') }}">
             <div class = "log">
                 <span class="material-symbols-outlined">upload</span>
@@ -68,6 +73,7 @@
                 <span class="material-symbols-outlined">logout</span>
             </div>
           </a>
+          
         {% endif %}
       </div>
     </header>

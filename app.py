@@ -60,34 +60,42 @@ def rechercheMenu():
 def tout():
     return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
 
+@app.route("/supp")
+def supp():
+    if ('loggedin' in session):
+        if session['loggedin']:
+            return render_template("suppression.html")
+    return redirect(url_for('login'))
+
 @app.route('/upload', methods = ['GET'])
 def home():
-    if session['loggedin']:
-        mat = []
-        for i in range(3, 6):
-            mat.append(getDictPeriode(i))
-        dict = {}
-        for i in range(0, len(mat)):
-            for j in range(0, len(mat[i])):
-                dict.update(mat[i][j])
-        return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin())
+    if ('loggedin' in session):
+        if session['loggedin']:
+            mat = []
+            for i in range(3, 6):
+                mat.append(getDictPeriode(i))
+            dict = {}
+            for i in range(0, len(mat)):
+                for j in range(0, len(mat[i])):
+                    dict.update(mat[i][j])
+            return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin())
     return redirect(url_for('login'))
 
 @app.route("/upload", methods=['POST'])
 def uploadPost():
-    if not session['loggedin']:
-        return redirect(url_for('login'))
-    
-    file = request.files['file']
-    auteur, tags, description, titre = request.form['auteur'], request.form['tags'], request.form['description'], request.form['titre']
-    
-    if titre is not None and titre != "":
-        file.filename = titre + ".pdf"
-    
-    annee, type_doc, matiere = request.form['annee'], request.form['type_doc'], request.form['matiere']
+    if ('loggedin' in session):
+        if session['loggedin']:
+            file = request.files['file']
+            auteur, tags, description, titre = request.form['auteur'], request.form['tags'], request.form['description'], request.form['titre']
+            
+            if titre is not None and titre != "":
+                file.filename = titre + ".pdf"
+            
+            annee, type_doc, matiere = request.form['annee'], request.form['type_doc'], request.form['matiere']
 
-    uploadDB(file, auteur, tags, description, annee, type_doc, matiere)
-    return redirect(url_for('index'))
+            uploadDB(file, auteur, tags, description, annee, type_doc, matiere)
+            return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 @app.route("/annee", methods=['GET'])
 def annee():
