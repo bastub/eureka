@@ -21,7 +21,7 @@ def loadDB():
     return db
 
 app = Flask(__name__)
-app.secret_key = 'la_cle_est_secrete'
+app.secret_key = getenv("secret_key")
 
 def loggedin() :
     if (session.__contains__('loggedin')) :
