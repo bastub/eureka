@@ -3,7 +3,7 @@
 <html lang="fr">
 
 <head>
-    <title>Upload</title>
+    <title>Suppression</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/variables.css')}}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/upload.css')}}">
     <script src="{{ url_for('static',filename='js/upload.js')}}" defer></script>
+    <link rel="icon" type="image/x-icon" href="/static/img/logo.png"/>
     
 </head>
 
@@ -30,7 +31,7 @@
                   <span class="material-symbols-outlined">login</span>
               </div>
             </a>
-          {% else %}
+            {% else %}
             <a href="{{ url_for('supp') }}">
               <div class = "log">
                   <span class="material-symbols-outlined">delete</span>
@@ -49,56 +50,22 @@
             {% endif %}
         </div>
     </header>
+
     <div class = "centre">
-      <h1>Upload</h1>
-      <form action="{{ url_for('uploadPost') }}" method="POST" enctype="multipart/form-data">
-        <div id="depot">
-          <label for="fichier" class="bouton">Sélectionner un fichier</label>
-          <input type="file" id="fichier" name="file" accept=".pdf" required>
-          
-          <div class="msgFichier">
-            <p>Aucun fichier sélectionné</p>
+        <h1>Suppression</h1>
+        <form action="{{ url_for('suppPost') }}" method="POST" enctype="multipart/form-data">
+          <div id="champs">
+            <input type="text" name="titre" placeholder="Titre" class="champ" required> 
           </div>
-        </div>
-        <div id="champs">
-          <input type="text" name="titre" placeholder="Titre" class="champ" required> 
-          
-          <input type="text" name="auteur" placeholder="Auteur" class="champ" required>
-          
-          <input type="text" name="tags" placeholder="Tags" class="champ" required>
-          
-          <input type="text-area" name="description" placeholder="Description" class="champ" required> 
-        </div>
-        
-        <div id="selections">
-          <select name="matiere" id="grandSelect" required>
-              {% for key, val in listeMatieres.items() %}
-                <option value="{{ val }}">{{ val }}</option>
-              {% endfor %}
-          </select>
-
-          <select name="annee" classe="petitSelect" required>
-            <option value="3">3A</option>
-            <option value="4">4A</option>
-            <option value="5">5A</option>
-            <option value="6">Autre</option>
-          </select>
-
-          <select name="type_doc" classe="petitSelect" required>
-            <option value="CM">CM</option>
-            <option value="TD">TD</option>
-            <option value="Autre">Autre</option>
-          </select>
-        </div>
-        <div id="boutonUpload">
-          <input type="submit" value="Upload" class="bouton">
-        </div>
-      </form>
-      <div id="msg">
-        {% if (msg != "") %}
-          <h2>{{msg}}</h2>
-        {% endif %}
+          <div id="boutonUpload">
+            <input type="submit" value="Supprimer" class="bouton">
+          </div>
+        </form>
+        <div id="msg">
+            {% if (msg != "") %}
+              <h2>{{msg}}</h2>
+            {% endif %}
+          </div>
       </div>
-    </div>
-  </body>
-</html>
+    </body>
+  </html>
