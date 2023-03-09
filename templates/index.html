@@ -3,7 +3,7 @@
 <html lang="fr">
 
   <head>
-      <title>Accueil</title>
+      <title>Eurêka - Accueil</title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,14 +18,13 @@
   <body>
     <header>
       <div class="logo">
-        {% block matieres %}{% endblock %}
-          <a href="{{ url_for('index') }}">
+          <a href="{{ url_for('index') }}" class="bandeau">
             <span id="logo">ê</span>
           </a>
           {% for i in range(3, 6) %}
             <div class="navbar">
               {% set anneeCours = i %}
-              <a href = "{{ url_for('annee', annee=i) }}">
+              <a href = "{{ url_for('annee', annee=i) }}" class="bandeau">
                 <button class="navbar-toggle">
                   <div id="barre_nav"><span class="annee">
                     {{i}}A
@@ -53,18 +52,18 @@
 
       <div class="logs">
         {% if (not loggedin) %}
-          <a href="{{ url_for('login') }}">
+          <a href="{{ url_for('login') }}" class="bandeau">
             <div class = "log">
                 <span class="material-symbols-outlined">login</span>
             </div>
           </a>
         {% else %}
-        <a href="{{ url_for('supp') }}">
+        <a href="{{ url_for('supp') }}" class="bandeau">
           <div class = "log">
               <span class="material-symbols-outlined">delete</span>
           </div>
         </a>
-          <a href="{{ url_for('home') }}">
+          <a href="{{ url_for('home') }}" class="bandeau">
             <div class = "log">
                 <span class="material-symbols-outlined">upload</span>
             </div>
