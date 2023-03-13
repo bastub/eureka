@@ -83,6 +83,15 @@ p {
     font-family: var(--body-font);
 }
 
+h1::selection,
+h2::selection,
+p::selection,
+b::selection,
+a::selection {
+    background-color: var(--col1);
+    color: var(--light-col1);
+}
+
 /* ===== LAYOUT ===== */
 
 .header {
@@ -112,6 +121,11 @@ p {
 .nav_logo {
     font-family: var(--title-font);
     background-color: var(--col1);
+}
+
+.nav_logo::selection {
+    background-color: var(--light-col1);
+    color: var(--col1);
 }
 
 .nav_right {
@@ -178,6 +192,11 @@ p {
     margin-bottom: 1rem;
 }
 
+.container_title::selection {
+    background-color: var(--col1);
+    color: var(--light-col1);
+}
+
 .center {
     display: flex;
     flex-direction: column;
@@ -203,8 +222,8 @@ p {
     border: none;
     padding: 0;
     cursor: pointer;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
   
 .navbar_toggle:hover,
@@ -278,6 +297,8 @@ p {
     font-weight: var(--font-medium);
 }
 
+
+
 /* ===== INDEX ===== */
 
 .main_center {
@@ -301,12 +322,23 @@ p {
     color: var(--col1);
 }
 
+.index_title::selection,
+.index_title_alt::selection {
+    background-color: var(--col1);
+    color: var(--light-col1);
+}
+
 .searchbar {
     font-family: var(--body-font);
     text-align: left;
     color: var(--text-col1);
     background: var(--light-col1);
     outline: none;
+}
+
+.searchbar::selection {
+    background-color: var(--col1);
+    color: var(--light-col1);
 }
 
 .index_searchbar {
@@ -403,6 +435,11 @@ p {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 }
 
+.about_barre::selection {
+    background-color: #EFC1CB;
+    color: var(--dark-col1);
+}
+
 .insta_link {
     color: var(--col1);
 }
@@ -446,7 +483,8 @@ p {
     color: var(--text-col1);
 }
 
-#password, #username {
+#password, 
+#username {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -461,14 +499,22 @@ p {
     outline: None;
 }
 
-#password:hover, #username:hover {
+#password:hover, 
+#username:hover {
     border-bottom: 2px solid var(--col1);
     transition: border-bottom 0.2s;
 }
 
-#password:invalid, #username:invalid {
+#password:invalid, 
+#username:invalid {
     border-bottom: 2px solid red;
     transition: border-bottom 0.2s;
+}
+
+#password::selection,
+#username::selection {
+    background-color: var(--col1);
+    color: var(--light-col1);
 }
 
 #connexion {
@@ -609,6 +655,13 @@ select:hover {
     align-items: center;
     justify-content: center;
     padding-top: 5vh;
+}
+
+#boutonUpload::selection,
+.bouton::selection,
+.champ::selection {
+    background-color: var(--col1);
+    color: var(--light-col1);
 }
 
 .upload_msg {
