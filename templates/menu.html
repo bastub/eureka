@@ -1,20 +1,63 @@
-{% extends 'layout.html' %}
+{% extends 'layout2.html' %}
 
 {% block titre %}Documents{% endblock %}
 
-{% block liste %}
-<div class ="scroll">
-    <ul id = 'listeDocu'>
-        {% for docu in listeDocu %}
-            <li><a href="{{ url_for('static', filename = 'pdf/' + docu[0] + '.pdf') }}"download>
-                <div id ='etiquette'>
-                    <h2>{{docu[0]}}.pdf</h2>
-                    <h3>{{docu[1]}}</h3>
-                    <h4>{{docu[3]}}</h4>
+{% block matieres %} 
+
+{% for i in range(3, 6) %}
+    <div class="navbar">
+        {% set anneeCours = i %}
+        <a href = "{{ url_for('annee', annee=i) }}" class="bandeau">
+            <button class="navbar_toggle">
+                <div class="navbar_annee">
+                  <span>{{i}}A</span>
                 </div>
-                </a>
-            </li>
-        {% endfor %}
+            </button>
+        </a>
+        <div class="navbar_links">
+            {% for j in range(1, 5) %}
+                <div class="dropdown">
+                    <button class="dropbtn">P{{ j }}</button>
+                    <div class="dropdown_content">
+                        {% for key, val in listeMatieres[i-3][j-1].items() %}
+                            <a href="{{ url_for('annee', annee=anneeCours, matiere=val) }}">{{ key }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block searchbar %} 
+<form method = "POST" class="menu_form" action="{{ url_for('recherche') }}">
+    <input class="searchbar menu_searchbar" id="menu-searchbar" ondrop="return false" autocomplete="off" type="text" name="search" placeholder="Rechercher avec des mots-clés...">
+</form> 
+{% endblock %}
+
+{% block main %}
+
+<div class="menu_listedocu" id="menu_listedocu">
+    <ul class="listedocu" id="listedocu">
+        {% if listeDocu %}
+            {% for docu in listeDocu %}
+                <li class="listedocu_item"><a href="{{ url_for('static', filename = 'pdf/' + docu[0] + '.pdf') }}" target="_blank">
+                        <h1>{{docu[0]}}</h2>
+                        <h2>{{docu[1]}}</h3>
+                        <p class="listedocu_desc">{{docu[3]}}</p>
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <div class="error_documents" id="error_documents">
+                <i class="uil uil-file-exclamation error_icon"></i>
+                <br>
+                Oups, aucun document à afficher...
+            </div>
+        {% endif %} 
     </ul>
 </div>
+
 {% endblock %}

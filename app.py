@@ -176,5 +176,13 @@ def logout():
 
     return render_template('index.html', listeMatieres = getDictAll(), loggedin = False)
 
+@app.route('/layout2')
+def layout2():
+    return render_template('layout2.html', loggedin = False)
+
+@app.route('/about')
+def about():
+    return render_template("about.html", loggedin = loggedin())
+
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)
