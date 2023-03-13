@@ -29,9 +29,15 @@ def loggedin() :
     else :
         return False
 
+
+# INDEX
+
 @app.route("/")
 def index():
     return render_template("index.html", listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
+
+
+# MENU
 
 @app.route("/search", methods=['POST'])
 def recherche():
@@ -46,19 +52,34 @@ def recherche():
         docs = [item for items, c in Counter(docs).most_common()
                                       for item in [items] * c]
         docs = list(dict.fromkeys(docs))
-        return render_template("menu.html", listeDocu = docs, listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
-    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
-
-@app.route("/recherche")
-def rechercheMenu():
-    matiere = request.args.get('matiere')
-    if matiere:
-        return render_template("menu.html", listeDocu = rechercheListePDF(matiere), listeAnnees = listMatMenu, loggedin = loggedin())
-    return render_template("menu.html", listeDocu=recherchePDF(''), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
+        return render_template("menu.html", listeDocu = docs, listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), annee = 0)
+    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), annee = 0)
 
 @app.route("/search")
 def tout():
-    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin())
+    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), annee = 0)
+
+@app.route("/annee", methods=['GET'])
+def annee():
+    annee = request.args.get('annee')
+    if annee not in ["3", "4", "5"]:
+        return redirect(url_for('search'))
+    matiere = request.args.get('matiere')
+    if matiere is None:
+        matiere = ""
+    listeMatieres = getDictAll()
+    liste = []
+    listerecherche = []
+    for dictMatieres in listeMatieres[int(annee) - 3]:
+        for value in dictMatieres.items():
+            listerecherche.append(value[1])
+    liste = rechercheListePDF(listerecherche, str(annee), matiere)
+    liste = [item for sublist in liste for item in sublist]
+
+    return render_template("menu.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin())
+
+
+# UPLOAD
 
 @app.route('/upload', methods = ['GET'])
 def home():
@@ -99,6 +120,9 @@ def uploadPost():
             return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = titre + " uploadé")
     return redirect(url_for('login'))
 
+
+# SUPPRESSION
+
 @app.route("/supp", methods=['GET'])
 def supp():
     if ('loggedin' in session):
@@ -115,22 +139,10 @@ def suppPost():
             return render_template("suppression.html", msg = titre + " supprimé", loggedin = loggedin())
     return redirect(url_for('login'))
 
-@app.route("/annee", methods=['GET'])
-def annee():
-    annee = request.args.get('annee')
-    matiere = request.args.get('matiere')
-    if matiere is None:
-        matiere = ""
-    listeMatieres = getDictAll()
-    liste = []
-    listerecherche = []
-    for dictMatieres in listeMatieres[int(annee) - 3]:
-        for value in dictMatieres.items():
-            listerecherche.append(value[1])
-    liste = rechercheListePDF(listerecherche, str(annee), matiere)
-    liste = [item for sublist in liste for item in sublist]
 
-    return render_template("menuannee.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin())
+# MENU ANNEE
+
+
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():

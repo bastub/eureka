@@ -1,6 +1,6 @@
-{% extends 'layout2.html' %}
+{% extends 'layout.html' %}
 
-{% block titre %}Documents{% endblock %}
+{% block titre %}Documents{% if annee != 0 %} {{annee}}A{% endif %}{% endblock %}
 
 {% block matieres %} 
 

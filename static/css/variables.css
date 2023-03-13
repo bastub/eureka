@@ -1,6 +1,0 @@
-:root {
-    --hue-color: 210;
-    --col1: hsl(var(--hue-color), 20%, 52%);
-    --dark-col1: hsl(var(--hue-color), 20%, 20%);
-    --light-col1: hsl(var(--hue-color), 20%, 98%);
-}
