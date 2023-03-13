@@ -1,5 +1,5 @@
 from flask import Flask, session, url_for, render_template, redirect, request
-from recherchePDF import recherchePDF, afficheTout, uploadDB, rechercheListePDF, deletePDF
+from recherchePDF import recherchePDF, afficheTout, supprimePDF, uploadDB, rechercheListePDF
 from fetchPeriode import getDictAll, listeMatAnnees, getDictPeriode
 import mysql.connector
 from dotenv import load_dotenv
@@ -59,6 +59,17 @@ def recherche():
 def tout():
     return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), annee = 0)
 
+@app.route("/supprime")
+def suppPost():
+    if ('loggedin' in session):
+        if session['loggedin']:
+            titre = request.args.get('titre')
+            auteur = request.args.get('auteur')
+            description = request.args.get('description')
+            supprimePDF(titre, auteur, description)
+            return redirect(url_for('recherche'))
+    return redirect(url_for('login'))
+
 @app.route("/annee", methods=['GET'])
 def annee():
     annee = request.args.get('annee')
@@ -82,7 +93,7 @@ def annee():
 # UPLOAD
 
 @app.route('/upload', methods = ['GET'])
-def home():
+def upload():
     if ('loggedin' in session):
         if session['loggedin']:
             mat = []
@@ -121,28 +132,7 @@ def uploadPost():
     return redirect(url_for('login'))
 
 
-# SUPPRESSION
-
-@app.route("/supp", methods=['GET'])
-def supp():
-    if ('loggedin' in session):
-        if session['loggedin']:
-            return render_template("suppression.html", msg = "", loggedin = loggedin())
-    return redirect(url_for('login'))
-
-@app.route("/supp", methods=['POST'])
-def suppPost():
-    if ('loggedin' in session):
-        if session['loggedin']:
-            titre = request.form['titre']
-            deletePDF(titre)
-            return render_template("suppression.html", msg = titre + " supprimé", loggedin = loggedin())
-    return redirect(url_for('login'))
-
-
-# MENU ANNEE
-
-
+# LOGIN
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -179,6 +169,9 @@ def login():
             msg = "Nom d'utilisateur ou mot de passe invalide."
     return render_template('login.html', msg = msg)
 
+
+# LOGOUT
+
 @app.route('/logout')
 def logout():
 
@@ -188,9 +181,8 @@ def logout():
 
     return render_template('index.html', listeMatieres = getDictAll(), loggedin = False)
 
-@app.route('/layout2')
-def layout2():
-    return render_template('layout2.html', loggedin = False)
+
+# ABOUT
 
 @app.route('/about')
 def about():

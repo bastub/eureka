@@ -1,6 +1,6 @@
 import mysql.connector
 from dotenv import load_dotenv
-from os import getenv
+from os import getenv, path, remove
 load_dotenv()
 
 def loadDB():
@@ -122,15 +122,11 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere = ""):
     db.commit()
     db.close()
 
-def deletePDF(titre):
+def supprimePDF(titre, auteur, description):
     db = loadDB()
     mycursor = db.cursor()
-
-    titre = titre.replace("_", " ")
-    titre = titre.replace(".pdf", "")
-    # get id_doc
-    sql = "SELECT id_doc FROM Documents WHERE titre = %s"
-    val = (titre,)
+    sql = "SELECT id_doc FROM Documents WHERE titre = %s AND auteur = %s AND description = %s"
+    val = (titre, auteur, description,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchall()
     id_doc = myresult[0][0]
@@ -149,3 +145,7 @@ def deletePDF(titre):
 
     # Closing the connection
     db.close()
+
+    
+    if path.exists("/static/pdf/" + titre + ".pdf"):
+        remove(titre + ".pdf")

@@ -43,11 +43,26 @@
     <ul class="listedocu" id="listedocu">
         {% if listeDocu %}
             {% for docu in listeDocu %}
-                <li class="listedocu_item"><a href="{{ url_for('static', filename = 'pdf/' + docu[0] + '.pdf') }}" target="_blank">
-                        <h1>{{docu[0]}}</h2>
-                        <h2>{{docu[1]}}</h3>
-                        <p class="listedocu_desc">{{docu[3]}}</p>
+                <li class="listedocu_item">
+                    <a href="{{ url_for('static', filename = 'pdf/' + docu[0] + '.pdf') }}" target="_blank">
+                        <div class="listedocu_etiquette" id="listedocu-etiquette">
+                            <h1>{{docu[0]}}</h2>
+                            <h2>{{docu[1]}}</h3>
+                            <p class="listedocu_desc">{{docu[3]}}</p>
+                        </div>
                     </a>
+                    {% if loggedin %}
+                        <div class="listedocu_admin">
+                            <a href="{{ url_for('suppPost', titre = docu[0], auteur = docu[1], description = docu[3]) }}">
+                                <button class="listedocu_admin_button" type="submit">
+                                    <i class="uil uil-trash-alt listedocu_admin_icon"></i>
+                                </button>
+                            </a>
+                                <button class="listedocu_admin_button" type="submit">
+                                    <i class="uil uil-edit listedocu_admin_icon"></i>
+                                </button>
+                        </div>
+                    {% endif %}
                 </li>
             {% endfor %}
         {% else %}
