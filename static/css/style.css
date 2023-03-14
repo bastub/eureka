@@ -6,7 +6,7 @@
     --header-height: 2.5rem;
 
     /* === Couleurs === */
-    --color1: 210;
+    --color1: 100;
 
     /* Variations */
     --col1: hsl(var(--color1), 20%, 52%);

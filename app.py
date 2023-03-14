@@ -1,5 +1,5 @@
 from flask import Flask, session, url_for, render_template, redirect, request
-from recherchePDF import recherchePDF, afficheTout, supprimePDF, uploadDB, rechercheListePDF
+from recherchePDF import getInfos, modifiePDF, recherchePDF, afficheTout, supprimePDF, uploadDB, rechercheListePDF
 from fetchPeriode import getDictAll, listeMatAnnees, getDictPeriode
 import mysql.connector
 from dotenv import load_dotenv
@@ -68,7 +68,55 @@ def suppPost():
             description = request.args.get('description')
             supprimePDF(titre, auteur, description)
             return redirect(url_for('recherche'))
+
     return redirect(url_for('login'))
+
+@app.route('/modification')
+def modification():
+    if ('loggedin' in session):
+        if session['loggedin']:
+            titre = request.args.get('titre')
+            auteur = request.args.get('auteur')
+            description = request.args.get('description')
+            tags = getInfos(titre, auteur, description)
+            tagString = tags[0]
+            tags.pop(0)
+            for tag in tags:
+                tagString += ";" + tag
+
+            mat = []
+            for i in range(3, 6):
+                mat.append(getDictPeriode(i))
+            dict = {}
+            for i in range(0, len(mat)):
+                for j in range(0, len(mat[i])):
+                    dict.update(mat[i][j])
+
+            return render_template("modification.html", matiere = 'analyse', type = 'TD', annee = 5, titre = titre, auteur = auteur, description = description, tags = tagString, loggedin = loggedin(), listeMatieres=dict)
+
+    return redirect(url_for('login'))
+
+@app.route('/modification', methods=['POST'])
+def modificationPost():
+    if ('loggedin' in session):
+        if session['loggedin']:
+            titre = request.args.get('titre')
+            auteur = request.args.get('auteur')
+            description = request.args.get('description')
+            newTitre = request.form['newTitre']
+            newAuteur = request.form['newAuteur']
+            newDescription = request.form['newDescription']
+            newTags = request.form['newTags']
+            annee = request.form['annee']
+            type_doc = request.form['type_doc']
+            matiere = request.form['matiere']
+
+            modifiePDF(titre, auteur, description, newTitre, newAuteur, newDescription, newTags, annee, type_doc, matiere)
+
+            return redirect(url_for('recherche'))
+
+    return redirect(url_for('login'))
+
 
 @app.route("/annee", methods=['GET'])
 def annee():
@@ -187,6 +235,8 @@ def logout():
 @app.route('/about')
 def about():
     return render_template("about.html", loggedin = loggedin())
+
+
 
 if __name__ == "__main__" :
     app.run(host="0.0.0.0",port=80,debug=True)

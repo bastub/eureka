@@ -58,9 +58,11 @@
                                     <i class="uil uil-trash-alt listedocu_admin_icon"></i>
                                 </button>
                             </a>
+                            <a href="{{ url_for('modification', titre = docu[0], auteur = docu[1], description = docu[3]) }}">
                                 <button class="listedocu_admin_button" type="submit">
                                     <i class="uil uil-edit listedocu_admin_icon"></i>
                                 </button>
+                            </a>
                         </div>
                     {% endif %}
                 </li>

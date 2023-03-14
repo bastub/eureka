@@ -1,6 +1,6 @@
 import mysql.connector
 from dotenv import load_dotenv
-from os import getenv, path, remove
+from os import getenv, path, remove, rename
 load_dotenv()
 
 def loadDB():
@@ -149,3 +149,83 @@ def supprimePDF(titre, auteur, description):
     
     if path.exists("/static/pdf/" + titre + ".pdf"):
         remove(titre + ".pdf")
+
+def getInfos(titre, auteur, description):
+    db = loadDB()
+    mycursor = db.cursor()
+    sql = "SELECT id_doc FROM Documents WHERE titre = %s AND auteur = %s AND description = %s"
+    val = (titre, auteur, description,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    id_doc = myresult[0][0]
+
+    sql = "SELECT nom FROM Tags WHERE id_tag IN (SELECT id_tag FROM Referencement WHERE id_doc = %s)"
+    val = (id_doc,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    tags = [tag[0] for tag in myresult]
+
+    db.close()
+
+    return tags
+
+def modifiePDF(titre, auteur, description, newTitre, newAuteur, newDescription, newTags, annee, type_doc, matiere):
+    db = loadDB()
+    mycursor = db.cursor()
+    sql = "SELECT id_doc FROM Documents WHERE titre = %s AND auteur = %s AND description = %s"
+    val = (titre, auteur, description,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    id_doc = myresult[0][0]
+
+    # modifie Documents
+    sql = "UPDATE Documents SET titre = %s, auteur = %s, description = %s WHERE id_doc = %s"
+    val = (newTitre, newAuteur, newDescription, id_doc,)
+
+    mycursor.execute(sql, val)
+
+    db.commit()
+
+    newTags = newTags.split(";")
+    newTags = [tag.strip() for tag in newTags]
+    newTags.append(titre)
+    newTags.append(annee)
+    newTags.append(type_doc)
+    newTags.append(matiere) if matiere != "" else None
+    newTags = [tag.lower() for tag in newTags]
+    newTags = list(dict.fromkeys(newTags))
+    newTags = [tag for tag in newTags if tag != ""]
+
+    # modifie Referencement
+    sql = "DELETE FROM Referencement WHERE id_doc = %s"
+    val = (id_doc,)
+
+    mycursor.execute(sql, val)
+
+    db.commit()
+    
+    for tag in newTags:
+        # check if tag in database else create it
+        sql = "SELECT id_tag FROM Tags WHERE nom = %s"
+        val = (tag,)
+        mycursor.execute(sql, val)
+        myresult = mycursor.fetchall()
+        if len(myresult) == 0:
+            sql = "INSERT INTO Tags (nom) VALUES (%s)"
+            val = (tag,)
+            mycursor.execute(sql, val)
+            db.commit()
+
+        sql = "INSERT INTO Referencement (id_doc, id_tag) VALUES (%s, (SELECT id_tag FROM Tags WHERE nom = %s))"
+        val = (id_doc, tag,)
+
+        mycursor.execute(sql, val)
+       
+
+    src = "static/pdf/" + titre + ".pdf"
+    dst = "static/pdf/" + newTitre + ".pdf"
+
+    rename(src, dst)
+    
+    db.commit()
+    db.close()
