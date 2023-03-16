@@ -7,7 +7,6 @@ from os import getenv
 import bcrypt
 from collections import Counter
 
-
 load_dotenv()
 listMatMenu = listeMatAnnees()
 

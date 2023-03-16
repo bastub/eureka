@@ -205,8 +205,6 @@ a::selection {
     width: 100%;
 }
 
-
-
 /* ===== NAVBAR ===== */
 
 .navbar {
@@ -214,6 +212,7 @@ a::selection {
     justify-content: center;
     align-items: center;
     position: relative;
+    z-index: var(--z-modal);
 }
 
 .navbar_toggle {
@@ -224,6 +223,7 @@ a::selection {
     cursor: pointer;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    z-index: var(--z-modal);
 }
   
 .navbar_toggle:hover,
@@ -247,6 +247,7 @@ a::selection {
     position: relative;
     display: inline-block;
     width:100%;
+    z-index: var(--z-modal);
 }
   
 .dropbtn {
@@ -258,6 +259,7 @@ a::selection {
     cursor: pointer;
     width:100%;
     font-family: var(--body-font);
+    z-index: var(--z-modal);
 }
   
 .dropdown_content {
@@ -295,6 +297,7 @@ a::selection {
     font-family: var(--body-font);
     font-size: var(--h1-font-size);
     font-weight: var(--font-medium);
+    z-index: var(--z-modal);
 }
 
 
