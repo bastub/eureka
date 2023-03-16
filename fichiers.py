@@ -16,7 +16,7 @@ def rechercheParTag(tag):
     db = loadDB()
     mycursor = db.cursor()
     tag = "%" + tag + "%"
-    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
+    sql = "SELECT titre, auteur, id_doc, description, matiere, annee FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
     val = (tag,)
 
     mycursor.execute(sql, val)
@@ -28,7 +28,7 @@ def rechercheParTag(tag):
 def rechercheParMatiere(matiere):
     db = loadDB()
     mycursor = db.cursor()
-    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE matiere = %s))"
+    sql = "SELECT titre, auteur, id_doc, description, matiere, annee FROM Documents WHERE matiere = %s))"
     val = (matiere,)
 
     mycursor.execute(sql, val)
@@ -40,7 +40,7 @@ def rechercheParMatiere(matiere):
 def rechercheParAnnee(annee):
     db = loadDB()
     mycursor = db.cursor()
-    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE annee = %s))"
+    sql = "SELECT titre, auteur, id_doc, description, matiere, annee FROM Documents WHERE annee = %s))"
     val = (annee,)
 
     mycursor.execute(sql, val)
@@ -49,10 +49,10 @@ def rechercheParAnnee(annee):
 
     return myresult
 
-def rechercheParMatiereEtAnnee(matiere, annee):
+def rechercheParMatiereEtAnnee(annee, matiere):
     db = loadDB()
     mycursor = db.cursor()
-    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE annee = %s AND matiere = %s))"
+    sql = "SELECT titre, auteur, id_doc, description, matiere, annee FROM Documents WHERE annee = %s AND matiere = %s))"
     val = (annee, matiere,)
 
     mycursor.execute(sql, val)
