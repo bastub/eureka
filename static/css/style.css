@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto+Mono:wght@500&family=Yeseva+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&family=Roboto+Mono:wght@500&family=Yeseva+One&display=swap');
 
 /* ===== VARIABLES ===== */
 
@@ -11,7 +11,8 @@
     /* Variations */
     --col1: hsl(var(--color1), 20%, 52%);
     --dark-col1: hsl(var(--color1), 20%, 20%);
-    --light-col1: hsl(var(--color1), 20%, 98%);
+    --light-col1: hsl(var(--color1), 20%, 65%);
+    --lighter-col1: hsl(var(--color1), 20%, 98%);
     --text-col1: hsl(var(--color1), 20%, 10%);
     --title-col1: hsl(var(--color1), 20%, 35%);
 
@@ -55,7 +56,7 @@ body {
     margin-top: var(--header-height);
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    background-color: var(--light-col1);
+    background-color: var(--lighter-col1);
     color: var(--text-col1);
 }
 
@@ -69,6 +70,13 @@ h2 {
     color: var(--col1);
     font-weight: var(--font-semi-bold);
     font-size: var(--h2-font-size);
+}
+
+h3 {
+    color: var(--light-col1);
+    font-weight: var(--font-semi-bold);
+    font-size: var(--normal-font-size);
+    font-style: italic;
 }
 
 ul {
@@ -89,7 +97,7 @@ p::selection,
 b::selection,
 a::selection {
     background-color: var(--col1);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
 }
 
 /* ===== LAYOUT ===== */
@@ -124,7 +132,7 @@ a::selection {
 }
 
 .nav_logo::selection {
-    background-color: var(--light-col1);
+    background-color: var(--lighter-col1);
     color: var(--col1);
 }
 
@@ -144,13 +152,13 @@ a::selection {
     justify-content: center;
     width: var(--header-height);
     height: var(--header-height);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
     font-size: var(--icon-font-size);
     transition: background-color .2s, color .2s;
 }
 
 .nav_logo:hover {
-    background-color: var(--light-col1);
+    background-color: var(--lighter-col1);
     color: var(--col1);
     transition: background-color .2s, color .2s;
 }
@@ -194,7 +202,7 @@ a::selection {
 
 .container_title::selection {
     background-color: var(--col1);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
 }
 
 .center {
@@ -217,7 +225,7 @@ a::selection {
 
 .navbar_toggle {
     background-color: var(--dark-col1);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
     border: none;
     padding: 0;
     cursor: pointer;
@@ -251,7 +259,7 @@ a::selection {
 }
   
 .dropbtn {
-    color: var(--light-col1);
+    color: var(--lighter-col1);
     background-color: inherit;
     border: none;
     padding: 12px 16px;
@@ -277,7 +285,7 @@ a::selection {
 }
   
 .dropdown_content a {
-    color: var(--light-col1);
+    color: var(--lighter-col1);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -328,26 +336,26 @@ a::selection {
 .index_title::selection,
 .index_title_alt::selection {
     background-color: var(--col1);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
 }
 
 .searchbar {
     font-family: var(--body-font);
     text-align: left;
     color: var(--text-col1);
-    background: var(--light-col1);
+    background: var(--lighter-col1);
     outline: none;
 }
 
 .searchbar::selection {
     background-color: var(--col1);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
 }
 
 .index_searchbar {
     width: 40rem;
     height: 2.5rem;
-    border: 2px solid var(--light-col1);
+    border: 2px solid var(--lighter-col1);
     border-radius: 5rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 0 1rem 0 1rem;
@@ -422,7 +430,7 @@ a::selection {
 .listedocu_admin_button {
     border: none;
     background-color: transparent;
-    color: var(--light-col1);
+    color: var(--lighter-col1);
     cursor: pointer;
     font-size: var(--h2-font-size);
     transition: color .1s;
@@ -526,7 +534,7 @@ a::selection {
     width: 100%;
     border: none;
     border-bottom: 2px solid var(--dark-col1);
-    background-color: var(--light-col1);
+    background-color: var(--lighter-col1);
     font-family: var(--body-font);
     font-size: var(--h2-font-size);
     color: var(--dark-col1);
@@ -549,7 +557,7 @@ a::selection {
 #password::selection,
 #username::selection {
     background-color: var(--col1);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
 }
 
 #connexion {
@@ -558,7 +566,7 @@ a::selection {
     border: none;
     border-radius: 1rem;
     background-color: var(--dark-col1);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
     font-family: var(--body-font);
     font-size: var(--h2-font-size);
     cursor: pointer;
@@ -616,7 +624,7 @@ input[type="file"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--light-col1);
+    color: var(--lighter-col1);
     background-color: var(--col1);
     height: 2.5rem;
     font-size: var(--h2-font-size);
@@ -648,7 +656,7 @@ input[type="file"] {
     height: 3rem;
     outline: none;
     border: none;
-    background-color: var(--light-col1);
+    background-color: var(--lighter-col1);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     font-family: var(--body-font);
     font-size: var(--h2-font-size);
@@ -672,7 +680,7 @@ select {
     border: none;
     padding: .8rem 1rem .8rem 1rem;
     border-radius: 1rem;
-    background-color: var(--light-col1);
+    background-color: var(--lighter-col1);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     outline: none;
     cursor: pointer;
@@ -696,7 +704,7 @@ select:hover {
 .bouton::selection,
 .champ::selection {
     background-color: var(--col1);
-    color: var(--light-col1);
+    color: var(--lighter-col1);
 }
 
 .upload_msg {

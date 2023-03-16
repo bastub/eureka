@@ -120,18 +120,23 @@ def modificationPost():
 @app.route("/annee", methods=['GET'])
 def annee():
     annee = request.args.get('annee')
+
     if annee not in ["3", "4", "5"]:
         return redirect(url_for('search'))
     matiere = request.args.get('matiere')
+
     if matiere is None:
         matiere = ""
+
     listeMatieres = getDictAll()
     liste = []
     listerecherche = []
+
     for dictMatieres in listeMatieres[int(annee) - 3]:
         for value in dictMatieres.items():
             listerecherche.append(value[1])
-    liste = rechercheListePDF(listerecherche, str(annee), matiere)
+            
+    liste = rechercheListePDF(listerecherche, int(annee), matiere)
     liste = [item for sublist in liste for item in sublist]
 
     return render_template("menu.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin())
