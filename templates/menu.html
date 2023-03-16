@@ -1,54 +1,80 @@
-<!DOCTYPE html>
+{% extends 'layout.html' %}
 
-<html lang="fr">
+{% block titre %}Documents{% if annee != 0 %} {{annee}}A{% endif %}{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Yeseva+One&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/variables.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/style-sheet.css')}}">
-    
-</head>
+{% block matieres %} 
 
-<body class="fond-menu">
-    <header>
-        <a href="{{ url_for('index') }}">
-            <div class="logo">
-                ê
-            </div>
-        </a>
-    <form method = "POST" class="recherche" action="{{ url_for('recherche') }}">
-        <input id="searchbar" type="text" name="search" placeholder="Recherche">
-    </form>
+{% for i in range(3, 6) %}
     <div class="navbar">
-        <button class="navbar-toggle">Menu</button>
-        <div class="navbar-links">
-          <a href="#">Option 1</a>
-          <a href="#">Option 2</a>
-          <a href="#">Option 3</a>
-          {% for key in listeMatiere %}
-          <!-- create the menu linking key to val -->
-            <a href="{{ url_for('matiere', matiere = val) }}">{{key}}</a>
+        {% set anneeCours = i %}
+        <a href = "{{ url_for('annee', annee=i) }}" class="bandeau">
+            <button class="navbar_toggle">
+                <div class="navbar_annee">
+                  <span>{{i}}A</span>
+                </div>
+            </button>
+        </a>
+        <div class="navbar_links">
+            {% for j in range(1, 5) %}
+                <div class="dropdown">
+                    <button class="dropbtn">P{{ j }}</button>
+                    <div class="dropdown_content">
+                        {% for key, val in listeMatieres[i-3][j-1].items() %}
+                            <a href="{{ url_for('annee', annee=anneeCours, matiere=val) }}">{{ key }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
             {% endfor %}
         </div>
-      </div>
-    </header>
-    <ul id = 'listeDocu'>
-        {% for docu in listeDocu %}
-            <li>
-                <a href="{{ url_for('static', filename = 'pdf/' + docu[0] + '.pdf') }}"download>
-                    <div id ='etiquette'>
-                        <h2>{{docu[0]}}.pdf</h2>
-                        <h3>{{docu[1]}}</h3>
-                    </div>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-</body>
+    </div>
+{% endfor %}
 
-</html>
+{% endblock %}
+
+{% block searchbar %} 
+<form method = "POST" class="menu_form" action="{{ url_for('recherche') }}">
+    <input class="searchbar menu_searchbar" id="menu-searchbar" ondrop="return false" autocomplete="off" type="text" name="search" placeholder="Rechercher avec des mots-clés...">
+</form> 
+{% endblock %}
+
+{% block main %}
+
+<div class="menu_listedocu" id="menu_listedocu">
+    <ul class="listedocu" id="listedocu">
+        {% if listeDocu %}
+            {% for docu in listeDocu %}
+                <li class="listedocu_item">
+                    <a href="{{ url_for('static', filename = 'pdf/' + docu[0] + '.pdf') }}" target="_blank">
+                        <div class="listedocu_etiquette" id="listedocu-etiquette">
+                            <h1>{{docu[0]}}</h2>
+                            <h2>{{docu[1]}}</h3>
+                            <p class="listedocu_desc">{{docu[3]}}</p>
+                        </div>
+                    </a>
+                    {% if loggedin %}
+                        <div class="listedocu_admin">
+                            <a href="{{ url_for('suppPost', titre = docu[0], auteur = docu[1], description = docu[3]) }}">
+                                <button class="listedocu_admin_button" type="submit">
+                                    <i class="uil uil-trash-alt listedocu_admin_icon"></i>
+                                </button>
+                            </a>
+                            <a href="{{ url_for('modification', titre = docu[0], auteur = docu[1], description = docu[3]) }}">
+                                <button class="listedocu_admin_button" type="submit">
+                                    <i class="uil uil-edit listedocu_admin_icon"></i>
+                                </button>
+                            </a>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        {% else %}
+            <div class="error_documents" id="error_documents">
+                <i class="uil uil-file-exclamation error_icon"></i>
+                <br>
+                Oups, aucun document à afficher...
+            </div>
+        {% endif %} 
+    </ul>
+</div>
+
+{% endblock %}

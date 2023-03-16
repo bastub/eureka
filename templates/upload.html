@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block titre %}Upload{% endblock %}
+
+{% block main %}
+
+<div class="container container_upload" id="container-upload">
+    <div class="container_title">Upload</div>
+    <form class="upload_form" action="{{ url_for('uploadPost') }}" method="POST" enctype="multipart/form-data">
+        <div id="depot">
+            <label for="fichier" class="bouton">Sélectionner un fichier</label>
+            <input type="file" id="fichier" name="file" accept=".pdf" required>
+            
+            <div class="msgFichier">
+                <p>Aucun fichier sélectionné</p>
+            </div>
+        </div>
+
+        <div id="champs">
+            <input type="text" name="titre" placeholder="Titre" class="champ" required> 
+            <input type="text" name="auteur" placeholder="Auteur" class="champ" required>
+            <input type="text" name="tags" placeholder="Tags" class="champ" required>
+            <input type="text-area" name="description" placeholder="Description" class="champ" required>     
+            <div id="selections">
+                <select name="matiere" class="select_item" required>
+                    {% for key, val in listeMatieres.items() %}
+                        <option value="{{ val }}">{{ val }}</option>
+                    {% endfor %}
+                </select>
+
+                <select name="annee" class="select_item" required>
+                    <option value="3">3A</option>
+                    <option value="4">4A</option>
+                    <option value="5">5A</option>
+                    <option value="6">Autre</option>
+                </select>
+
+                <select name="type_doc" class="select_item" required>
+                    <option value="CM">CM</option>
+                    <option value="TD">TD</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </div>
+        </div>
+            
+        <div id="boutonUpload">
+            <input type="submit" value="Upload" class="bouton">
+        </div>
+    </form>
+
+    <div class="upload_msg">
+        {% if (msg != "") %}
+            <span>{{msg}}</span>
+        {% endif %}
+    </div>
+</div>
+
+<script src="{{ url_for('static',filename='js/upload.js')}}"></script>
+
+{% endblock %}

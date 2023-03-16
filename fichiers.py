@@ -12,12 +12,48 @@ def loadDB():
     )
     return db
 
-def recherchePDF(tag):
+def rechercheParTag(tag):
     db = loadDB()
     mycursor = db.cursor()
     tag = "%" + tag + "%"
-    sql = "SELECT titre, auteur, id_doc, description FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
+    sql = "SELECT titre, auteur, id_doc, description, matiere, annee FROM Documents WHERE id_doc IN (SELECT id_doc FROM Referencement WHERE id_tag IN (SELECT id_tag FROM Tags WHERE nom like %s))"
     val = (tag,)
+
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    db.close()
+
+    return myresult
+
+def rechercheParMatiere(matiere):
+    db = loadDB()
+    mycursor = db.cursor()
+    sql = "SELECT titre, auteur, id_doc, description, matiere, annee FROM Documents WHERE matiere = %s))"
+    val = (matiere,)
+
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    db.close()
+
+    return myresult
+
+def rechercheParAnnee(annee):
+    db = loadDB()
+    mycursor = db.cursor()
+    sql = "SELECT titre, auteur, id_doc, description, matiere, annee FROM Documents WHERE annee = %s))"
+    val = (annee,)
+
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    db.close()
+
+    return myresult
+
+def rechercheParMatiereEtAnnee(annee, matiere):
+    db = loadDB()
+    mycursor = db.cursor()
+    sql = "SELECT titre, auteur, id_doc, description, matiere, annee FROM Documents WHERE annee = %s AND matiere = %s))"
+    val = (annee, matiere,)
 
     mycursor.execute(sql, val)
     myresult = mycursor.fetchall()
@@ -53,7 +89,7 @@ def rechercheListePDF(listeTags, annee="", matiere=""):
 def afficheTout():
     db = loadDB()
     mycursor = db.cursor()
-    sql = "SELECT titre, auteur, id_doc, description FROM Documents"
+    sql = "SELECT titre, auteur, id_doc, description FROM Documents" 
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     db.close()

@@ -1,27 +1,45 @@
-<!DOCTYPE html>
+{% extends 'layout.html' %}
 
-<html lang="fr">
+{% block titre %}Accueil{% endblock %}
 
-<head>
-    <title>Accueil</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/variables.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/style-sheet-accueil.css')}}">
-</head>
+{% block matieres %} 
 
-<body>
-    <div class = "centre">
-    <a href="{{ url_for('tout') }}"><h1>Eur<r>ê</r>ka</h1></a>
-    <h2>Le <r>savoir</r> à portée de main</h2>
-    <form method = "POST" class="recherche" action="{{ url_for('recherche') }}">
-        <input id="searchbar" type="text" name="search" placeholder="Recherche">
+{% for i in range(3, 6) %}
+    <div class="navbar">
+        {% set anneeCours = i %}
+        <a href = "{{ url_for('annee', annee=i) }}" class="bandeau">
+            <button class="navbar_toggle">
+                <div class="navbar_annee">
+                  <span>{{i}}A</span>
+                </div>
+            </button>
+        </a>
+        <div class="navbar_links">
+            {% for j in range(1, 5) %}
+                <div class="dropdown">
+                    <button class="dropbtn">P{{ j }}</button>
+                    <div class="dropdown_content">
+                        {% for key, val in listeMatieres[i-3][j-1].items() %}
+                            <a href="{{ url_for('annee', annee=anneeCours, matiere=val) }}">{{ key }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block main %}
+
+<div class="main_center" id="main-center">
+    <a href="{{ url_for('tout') }}">
+        <div class="index_title" id="index_title">Eur<span class="index_title_alt">ê</span>ka</div>
+    </a>
+    <form method = "POST" class="index_form" action="{{ url_for('recherche') }}">
+        <input class="searchbar index_searchbar" id="index-searchbar" ondrop="return false" autocomplete="off" type="text" name="search" placeholder="Rechercher avec des mots-clés...">
     </form>
 </div>
 
-</body>
-
-</html>
+{% endblock %}

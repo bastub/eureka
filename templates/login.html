@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block titre %}Upload{% endblock %}
+
+{% block main %}
+
+<div class="container container_login">
+    <div class="login">
+        <div class="container_title">Connexion</div>
+        <form class="login_form" action="{{ url_for('login') }}" method="post">
+            <div class="login_champ">
+                <div class="login_icon">
+                    <i class="uil uil-user"></i>
+                </div>    
+                <input id="username" ondrop="return false" autocomplete="off" type="text" name="pseudo" placeholder="Nom d'utilisateur"  required>
+            </div>
+            <div class="login_champ">
+                <div class="login_icon">
+                    <i class="uil uil-lock-alt"></i>
+                </div>
+                <input id="password" ondrop="return false" autocomplete="off" type="password" name="password" placeholder="Mot de passe"  required>
+            </div>
+            <div class="login_msg">{{ msg }}</div>
+            <input id="connexion" type="submit" value="Connexion">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
