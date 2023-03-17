@@ -7,9 +7,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+    <link id="head-theme" rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
     <link rel="icon" type="image/x-icon" href="/static/img/logo.png"/>
-    {% block css %}{% endblock %}
+    <script>
+        function toggleTheme() {
+            var theme = document.getElementById('head-theme');
+            var bouton = document.getElementById('icon-theme');
+        
+            if (theme.getAttribute('href') == "{{ url_for('static',filename='css/style.css')}}") {
+                theme.setAttribute('href', "{{ url_for('static',filename='css/style-sombre.css')}}");
+                bouton.setAttribute('class', 'uil uil-sun');
+            } else {
+                theme.setAttribute('href', "{{ url_for('static',filename='css/style.css')}}");
+                bouton.setAttribute('class', 'uil uil-moon');
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -56,8 +69,9 @@
 
     <!-- ===== MAIN ===== -->
     <main class="main" id="main">
+        <button class="bouton_theme" onclick="toggleTheme()">
+            <i id="icon-theme" class="uil uil-moon"></i>
+        </button>
         {% block main %}{% endblock %}
     </main>
-
-    <script src="{{ url_for('static',filename='js/theme.js')}}"></script>
 </body>

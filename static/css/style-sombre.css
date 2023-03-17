@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&family=Roboto+Mono:wght@500&family=Yeseva+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&familytitle-col=Roboto+Mono:wght@500&family=Yeseva+One&display=swap');
 
 /* ===== VARIABLES ===== */
 
@@ -13,8 +13,11 @@
     --dark-col1: hsl(var(--color1), 20%, 20%);
     --light-col1: hsl(var(--color1), 20%, 65%);
     --lighter-col1: hsl(var(--color1), 20%, 98%);
-    --text-col1: hsl(var(--color1), 20%, 10%);
-    --title-col1: hsl(var(--color1), 20%, 35%);
+    --text-col1: hsl(var(--color1), 20%, 98%);
+    
+
+    --background-col: hsl(var(--color1), 20%, 10%);
+    --title-col: hsl(var(--color1), 20%, 70%);
 
     --cm-col: #91AB79;
     --td-col: #7d71ca;
@@ -71,12 +74,12 @@ body {
     margin-top: var(--header-height);
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    background-color: var(--lighter-col1);
+    background-color: var(--background-col);
     color: var(--text-col1);
 }
 
 h1 {
-    color: var(--title-col1);
+    color: var(--title-col);
     font-weight: var(--font-bold);
     font-size: var(--h1-font-size);
     display: inline-block;
@@ -178,7 +181,7 @@ a::selection {
 }
 
 .nav_logo:hover {
-    background-color: var(--lighter-col1);
+    background-color: var(--background-col);
     color: var(--col1);
     transition: background-color .2s, color .2s;
 }
@@ -216,7 +219,7 @@ a::selection {
     font-family: var(--body-font);
     font-size: var(--title-font-size);
     font-weight: var(--font-bold);
-    color: var(--dark-col1);
+    color: var(--title-col);
     margin-bottom: 1rem;
 }
 
@@ -241,9 +244,10 @@ a::selection {
     top: calc(var(--header-height) + 1rem);
     left: 1rem;
     border: none;
-    background-color: var(--col1);
-    color: var(--lighter-col1);
+    background-color: var(--dark-col1);
+    color: var(--text-col1);
     border-radius: 50%;
+    border: 3px solid var(--dark-col1);
     padding: .5rem;
     font-size: var(--h1-font-size);
     width: 2.5rem;
@@ -253,12 +257,15 @@ a::selection {
 }
 
 .bouton_theme:hover {
-    background-color: var(--dark-col1);
+    background-color: var(--background-col1);
     transition: background-color .2s;
 }
 
 
+
 /* ===== NAVBAR ===== */
+
+
 
 .navbar {
     display: flex;
@@ -382,7 +389,7 @@ a::selection {
     font-family: var(--title-font);
     font-size: var(--big-font-size);
     font-weight: var(--font-bold);
-    color: var(--dark-col1);
+    color: var(--title-col);
     text-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 }
 
@@ -400,8 +407,9 @@ a::selection {
     font-family: var(--body-font);
     text-align: left;
     color: var(--text-col1);
-    background: var(--lighter-col1);
+    background: var(--background-col);
     outline: none;
+    
 }
 
 .searchbar::selection {
@@ -412,7 +420,7 @@ a::selection {
 .index_searchbar {
     width: 40rem;
     height: 2.5rem;
-    border: 2px solid var(--lighter-col1);
+    border: 2px solid var(--dark-col1);
     border-radius: 5rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 0 1rem 0 1rem;
@@ -434,6 +442,7 @@ a::selection {
     border-radius:2.5vh;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 0 1rem 0 1rem;
+    border: 1px solid var(--dark-col1);
 }
 
 @media screen and (max-width: 968px) {
@@ -462,6 +471,7 @@ a::selection {
     text-align: left;
     width: 80%;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border: 2px solid var(--dark-col1);
     border-radius: .5rem;
     transition: box-shadow .1s;
 }
@@ -655,10 +665,10 @@ a::selection {
     width: 100%;
     border: none;
     border-bottom: 2px solid var(--dark-col1);
-    background-color: var(--lighter-col1);
+    background-color: var(--background-col);
     font-family: var(--body-font);
     font-size: var(--h2-font-size);
-    color: var(--dark-col1);
+    color: var(--text-col1);
     transition: border-bottom 0.1s;
     outline: None;
 }
@@ -707,7 +717,7 @@ a::selection {
 
 
 
-/* ===== UPLOAD & SUPPRESSION ===== */
+/* ===== UPLOAD ===== */
 
 .container_upload {
     display: flex;
@@ -745,19 +755,20 @@ input[type="file"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--lighter-col1);
-    background-color: var(--col1);
+    color: var(--text-col1);
+    background-color: var(--dark-col1);
     height: 2.5rem;
     font-size: var(--h2-font-size);
     transition: background-color 0.1s;
     padding-left: 1rem;
     padding-right: 1rem;
     border-radius: 1rem;
+    border: 2px solid var(--dark-col1);
     cursor: pointer;
 }
 
 .bouton:hover {
-    background-color: var(--dark-col1);
+    background-color: var(--background-col);
     transition: background-color 0.2s;
 }
 
@@ -776,8 +787,9 @@ input[type="file"] {
     width:60%;
     height: 3rem;
     outline: none;
-    border: none;
-    background-color: var(--lighter-col1);
+    border: 2px solid var(--dark-col1);
+    background-color: var(--background-col1);
+    color: var(--text-col1);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     font-family: var(--body-font);
     font-size: var(--h2-font-size);
@@ -797,11 +809,11 @@ input[type="file"] {
 select {
     font-family: var(--body-font);
     font-size: var(--h2-font-size);
-    color: var(--text-col1);
-    border: none;
     padding: .8rem 1rem .8rem 1rem;
     border-radius: 1rem;
-    background-color: var(--lighter-col1);
+    border: 2px solid var(--dark-col1);
+    background-color: var(--background-col1);
+    color: var(--text-col1);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     outline: none;
     cursor: pointer;
@@ -812,6 +824,13 @@ select {
 select:hover {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
     transition: box-shadow 0.2s;
+}
+
+.option_upload {
+    font-family: var(--body-font);
+    font-size: var(--h2-font-size);
+    color: var(--text-col1);
+    background-color: var(--background-col);
 }
 
 #boutonUpload {
