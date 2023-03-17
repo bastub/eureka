@@ -63,7 +63,16 @@
                             {% endif %}
                             <h1>{{docu[0]}}</h1></div>
                             <h2>{{docu[1]}}</h2>
-                            <h3>{{docu[3]}}A - {% for j in range(1, 5) %}{% for key, val in listeMatieres[docu[3]-3][j-1].items() %}{% if docu[2] == val %}{{key}}{% endif %}{% endfor %}{% endfor %} - {{docu[4]}}</h3>
+                            {% set done = [] %}
+                            <h3>{{docu[3]}}A - 
+                                {% for j in range(1, 5) %}
+                                    {% for key, val in listeMatieres[docu[3]-3][j-1].items() %}
+                                        {% if docu[2] == val and val not in done %}
+                                            {{key}}
+                                            {% set done = done.append(val) %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %} - {{docu[4]}}</h3>
                             <p class="listedocu_desc">{{docu[5]}}</p>
                         </div>
                     </a>
