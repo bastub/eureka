@@ -61,6 +61,7 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere):
     tags = tags.split(";")
     tags = [tag.strip() for tag in tags]
     titre = file.filename.replace("_", " ")
+    titre = titre.replace("/", "-")
     titre = titre.replace(".pdf", "")
 
     tags.append(titre)
