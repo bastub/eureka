@@ -86,6 +86,8 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere):
         id_doc = 0
     else:
         id_doc = myresult[0][0]+1
+
+    db.commit()
         
     
     file.save("static/pdf/" + id_doc + " - " + titre + ".pdf")
