@@ -9,7 +9,7 @@ load_dotenv()
 openai.api_key = os.getenv("gptKey")
 
 
-def getMostCommonWord(filename):
+def getWord(filename):
     with open (filename, "rb") as f:
         pdf = pdf2.PdfReader(f)
         text = ""
@@ -25,7 +25,7 @@ def getMostCommonWord(filename):
     return liste
 
 def analyzePDF(filename):
-    liste = getMostCommonWord(filename)
+    liste = getWord(filename)
     for i in range(len(liste)):
         convert = " ".join(liste[i])
         p = f'''Donne-moi uniquement les 5 mots les plus représentatifs du texte suivant pour me donner le thème du document:
@@ -50,4 +50,4 @@ def analyzePDF(filename):
         print(text+'\n')
 
 
-analyzePDF("C:/Users/maxim/Downloads/Listes.pdf")
+# analyzePDF("C:/Users/maxim/Downloads/Listes.pdf")
