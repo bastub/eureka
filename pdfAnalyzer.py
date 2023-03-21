@@ -28,10 +28,8 @@ def analyzePDF(filename):
     liste = getMostCommonWord(filename)
     for i in range(len(liste)):
         convert = " ".join(liste[i])
-        p = f'''Give me the 5 most representative words of the following text:
+        p = f'''Donne-moi uniquement les 5 mots les plus représentatifs du texte suivant pour me donner le thème du document:
         {convert}'''
-
-        print(p)
 
         # generate the response
         response = openai.Completion.create(
