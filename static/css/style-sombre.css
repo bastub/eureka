@@ -220,7 +220,7 @@ a::selection {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: calc(100vh - var(--header-height));
+    height: calc(100vh - 2 * var(--header-height));
 }
 
 .container_title {
@@ -634,7 +634,23 @@ a::selection {
 
 /* ===== LOGIN ===== */
 
+.container_login {
+    display: flex;
+    flex-direction: row;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+    width: 30rem;
+    height: 20rem;
+}
+
+.illustration_login {
+    height: 100%;
+    width: 10%;
+    background-color: var(--col1);
+}
+
 .login {
+    height: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -723,7 +739,24 @@ a::selection {
     color: red;
 }
 
+@media screen and (max-width: 968px) {
 
+    .container_login {
+        width: 20rem;
+        height: 20rem;
+        flex-direction: column;
+    }
+
+    .illustration_login {
+        width:100%;
+        height: 10%;
+    }
+
+    .login {
+        width: 100%;
+        height: 90%;
+    }
+}
 
 /* ===== UPLOAD ===== */
 
