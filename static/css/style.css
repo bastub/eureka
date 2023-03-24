@@ -58,6 +58,7 @@
         --h1-font-size: 1rem;
         --h2-font-size: .9rem;
         --normal-font-size: .8rem;
+        --nav-font-size: 1rem;
     }
 }
 
@@ -368,7 +369,7 @@ a::selection {
     display: block;
 }
 
-.navbar_annee {
+.navbar_annee{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -380,7 +381,41 @@ a::selection {
     z-index: var(--z-modal);
 }
 
+.bouton_divers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--header-height);
+    font-family: var(--body-font);
+    font-size: var(--nav-font-size);
+    font-weight: var(--font-medium);
+    background-color: var(--dark-col1);
+    color: var(--lighter-col1);
+    z-index: var(--z-modal);
+    border: none;
+    padding: 0 1rem 0 1rem ;
+}
 
+.bouton_divers:hover {
+    background-color: var(--col1);
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 968px) {
+    .bouton_divers {
+        padding: 0 .5rem 0 .5rem;
+    }
+
+    .navbar_annee {
+        width: calc(var(--header-height)+ .5rem);
+    }
+
+    .navbar_toggle {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
 
 /* ===== INDEX ===== */
 
@@ -443,7 +478,7 @@ a::selection {
 /* ===== MENU ===== */
 
 .menu_searchbar {
-    width: 50vw;
+    width: 40vw;
     height: 1.5rem;
     border: 0px;
     border-radius:2.5vh;
@@ -959,6 +994,21 @@ select:hover {
 @keyframes bounce {
   0%{transform: translateY(0px);}
   100% {transform: translateY(-1em);}
+}
+
+@media screen and (max-width: 968px) {
+    .loader_letter1, 
+    .loader_letter2,
+    .loader_letter3,
+    .loader_letter4,
+    .loader_letter5,
+    .loader_letter6 {
+        font-size: 4rem;
+    }
+
+    .loader_wrapper {
+        gap: 1rem;
+    }
 }
 
 
