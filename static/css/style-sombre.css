@@ -480,7 +480,7 @@ a::selection {
 /* ===== MENU ===== */
 
 .menu_searchbar {
-    width: 50vw;
+    width: 40vw;
     height: 1.5rem;
     border: 0px;
     border-radius:2.5vh;
