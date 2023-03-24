@@ -825,7 +825,7 @@ input[type="file"] {
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-bottom: 2rem;
+    margin: 0;
 }
 
 .bouton {
@@ -837,7 +837,7 @@ input[type="file"] {
     color: var(--lighter-col1);
     background-color: var(--col1);
     height: 2.5rem;
-    font-size: var(--h2-font-size);
+    font-size: var(--normal-font-size);
     transition: background-color 0.1s;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -858,7 +858,7 @@ input[type="file"] {
     width: 100%;
     margin: 0;
     padding: 0;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .champ {
@@ -869,7 +869,7 @@ input[type="file"] {
     background-color: var(--lighter-col1);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     font-family: var(--body-font);
-    font-size: var(--h2-font-size);
+    font-size: var(--normal-font-size);
     padding-left: 1rem;
     padding-right: 1rem;
     border-radius: 1rem;
@@ -879,13 +879,13 @@ input[type="file"] {
 #selections {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 2rem;
+    gap: 1rem;
     width: 60%;
 }
 
 select {
     font-family: var(--body-font);
-    font-size: var(--h2-font-size);
+    font-size: var(--normal-font-size);
     color: var(--text-col1);
     border: none;
     padding: .8rem 1rem .8rem 1rem;
@@ -907,7 +907,7 @@ select:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 5vh;
+    padding-top: 1rem;
 }
 
 #boutonUpload::selection,
