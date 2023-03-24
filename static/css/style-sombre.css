@@ -994,11 +994,16 @@ select:hover {
     flex-direction: row;
 }
 
-.container_404_text a {
+.container_404_text {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    gap: 1rem;
+}
+
+.container_404_text a {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     color: var(--col1);
