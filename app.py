@@ -187,8 +187,7 @@ def uploadPost():
             annee, type_doc, matiere = request.form['annee'], request.form['type_doc'], request.form['matiere']
 
             res = uploadDB(file, auteur, tags, description, annee, type_doc, matiere)
-            if res == False:
-                return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Erreur lors de l'upload", theme = cookie)
+
             mat = []
             for i in range(3, 6):
                 mat.append(getDictPeriode(i))
@@ -196,7 +195,9 @@ def uploadPost():
             for i in range(0, len(mat)):
                 for j in range(0, len(mat[i])):
                     dict.update(mat[i][j])
-
+            if res == False:
+                return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Erreur lors de l'upload", theme = cookie)
+            
             return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = titre + " uploadé", theme = cookie)
     return redirect(url_for('login'))
 
