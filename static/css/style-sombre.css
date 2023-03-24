@@ -971,3 +971,42 @@ select:hover {
   0%{transform: translateY(0px);}
   100% {transform: translateY(-1em);}
 }
+
+.letter_404_1 {
+    animation: bounce .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite alternate;
+}
+
+.letter_404_2 {
+    animation: bounce .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite alternate;
+    animation-delay:.05s;
+}
+
+.letter_404_3 {
+    animation: bounce .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite alternate;
+    animation-delay:.10s;
+}
+
+.container_404_erreur {
+    font-family: var(--title-font);
+    font-size: 6rem;
+    color: var(--lighter-col1);
+    display: flex;
+    flex-direction: row;
+}
+
+.container_404_text a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    color: var(--col1);
+    text-decoration: none;
+    transition: color 0.2s;
+}   
+
+.container_404_text a:hover {
+    color: var(--light-col1);
+    transition: color 0.2s;
+}
