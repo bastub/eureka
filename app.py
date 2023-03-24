@@ -148,6 +148,13 @@ def annee():
 
     return render_template("menu.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin(), theme = cookie)
 
+@app.route("/divers", methods=['GET'])
+def divers():
+    cookie = request.cookies.get('theme', default="light")
+    listeMatieres = getDictAll()
+    liste = rechercheListePDF(["divers", "Autre"], 6)
+    liste = [item for sublist in liste for item in sublist]
+    return render_template("menu.html", listeDocu=liste, listeMatieres=listeMatieres, annee=0, loggedin = loggedin(), theme = cookie)
 
 # UPLOAD
 
