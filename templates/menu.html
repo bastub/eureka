@@ -110,4 +110,23 @@
         <p>TD</p>
 
 </div>
+
+<div class="loader_wrapper">
+    <span class="loader_letter1">E</span>
+    <span class="loader_letter2">u</span>
+    <span class="loader_letter3">r</span>
+    <span class="loader_letter4">ê</span>
+    <span class="loader_letter5">k</span>
+    <span class="loader_letter6">a</span>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(window).on('load', function() {
+        setTimeout(function() {
+            $('.loader_wrapper').fadeOut("slow");
+        }, 250);
+    });
+</script>
+
 {% endblock %}
