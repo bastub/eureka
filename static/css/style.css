@@ -727,9 +727,10 @@ a::selection {
     background-color: var(--lighter-col1);
     font-family: var(--body-font);
     font-size: var(--h2-font-size);
-    color: var(--dark-col1);
+    color: var(--text-col1);
     transition: border-bottom 0.1s;
     outline: None;
+    background-color: var(--background-col1);
 }
 
 #password:hover, 

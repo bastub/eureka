@@ -5,7 +5,8 @@
 :root {
     --text-col1: hsl(var(--color1), 20%, 98%);
     --background-col1: hsl(var(--color1), 20%, 10%);
-    --title-col1: hsl(var(--color1), 20%, 30%);
+    --home-title-col1: hsl(var(--color1), 20%, 30%);
+    --title-col1: hsl(var(--color1), 20%, 60%);
 }
 
 
@@ -28,7 +29,7 @@
 /* ===== INDEX ===== */
 
 .index_title {
-    color: var(--title-col1);
+    color: var(--home-title-col1);
 }
 
 .index_searchbar {
@@ -57,6 +58,17 @@
     color: var(--light-col1);
 }
 
+
+/* ===== LOGIN ===== */
+
+.illustration_login {
+    background-color: var(--dark-col1);
+}
+
+#password, 
+#username {
+    background-color: var(--background-col1);
+}
 
 
 /* ===== LOADER ===== */
