@@ -34,6 +34,7 @@
 
 .index_searchbar {
     border-color: var(--dark-col1);
+    background-color: var(--background-col1);
 }
 
 
@@ -68,6 +69,24 @@
 #password, 
 #username {
     background-color: var(--background-col1);
+}
+
+
+/* ===== UPLOAD ===== */
+
+.bouton {
+    color: var(--text-col1);
+    background-color: var(--dark-col1);
+    border: 2px solid var(--dark-col1);
+}
+
+.bouton:hover {
+    background-color: var(--background-col1);
+    transition: background-color 0.2s;
+}
+
+.champ, select {
+    border: 2px solid var(--dark-col1);
 }
 
 

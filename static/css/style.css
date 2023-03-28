@@ -51,7 +51,7 @@
     
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 992px) {
     :root {
         --big-font-size: 5rem;
         --title-font-size: 2.5rem;
@@ -276,14 +276,14 @@ a::selection {
     z-index: var(--z-modal);
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 1200px) {
     .navbar_pc {
         display: none;
     }
 }
 
-@media screen and (min-width: 968px) {
-    .navbar_mobile {
+@media screen and (min-width: 1200px) {
+    .navbar_tab {
         display: none;
     }
 }
@@ -394,7 +394,7 @@ a::selection {
     cursor: pointer;
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 1200px) {
     .bouton_divers {
         padding: 0 .5rem 0 .5rem;
     }
@@ -461,7 +461,7 @@ a::selection {
     background-color: white;
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 992px) {
     .index_searchbar {
         width: 20rem;
     }
@@ -482,7 +482,7 @@ a::selection {
 }
 
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 768px) {
     .menu_searchbar{
         display: none;
     }
@@ -551,7 +551,7 @@ a::selection {
     background-color: var(--divers-col);
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 992px) {
     .pastille_titre {
         gap: .5rem;
     }
@@ -627,7 +627,7 @@ a::selection {
     border: 2px solid var(--lighter-col1);
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 1200px) {
     .legende{
         display: none;
     }
@@ -778,7 +778,7 @@ a::selection {
     color: red;
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 992px) {
 
     .container_login {
         width: 20rem;
@@ -832,7 +832,7 @@ input[type="file"] {
 
 .bouton {
     font-family: var(--body-font);
-    border: none;
+    border: 2px solid var(--col1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -840,7 +840,7 @@ input[type="file"] {
     background-color: var(--col1);
     height: 2.5rem;
     font-size: var(--normal-font-size);
-    transition: background-color 0.1s;
+    transition: background-color 0.1s, border 0.1s;
     padding-left: 1rem;
     padding-right: 1rem;
     border-radius: 1rem;
@@ -848,8 +848,9 @@ input[type="file"] {
 }
 
 .bouton:hover {
+    border: 2px solid var(--dark-col1);
     background-color: var(--dark-col1);
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, border 0.2s;
 }
 
 #champs {
@@ -867,8 +868,8 @@ input[type="file"] {
     width:60%;
     height: 3rem;
     outline: none;
-    border: none;
-    background-color: var(--lighter-col1);
+    border: 2px solid var(--background-col1);
+    background-color: var(--background-col1);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
@@ -876,6 +877,7 @@ input[type="file"] {
     padding-right: 1rem;
     border-radius: 1rem;
     transition: box-shadow 0.1s;
+    color: var(--text-col1);
 }
 
 #selections {
@@ -888,15 +890,15 @@ input[type="file"] {
 select {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    color: var(--text-col1);
-    border: none;
     padding: .8rem 1rem .8rem 1rem;
     border-radius: 1rem;
-    background-color: var(--lighter-col1);
+    border: 2px solid var(--background-col1);
+    background-color: var(--background-col1);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     outline: none;
     cursor: pointer;
     transition: box-shadow 0.1s;
+    color: var(--text-col1);
 }
 
 .champ:hover,
@@ -998,7 +1000,7 @@ select:hover {
   100% {transform: translateY(-1em);}
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 992px) {
     .loader_letter1, 
     .loader_letter2,
     .loader_letter3,

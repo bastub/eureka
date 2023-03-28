@@ -17,7 +17,7 @@
             </a>
         </div>
 
-        <div class="navbar_mobile">
+        <div class="navbar_tab">
                 <button class="navbar_toggle">
                     <div class="navbar_annee">
                     <span>{{i}}A</span>
@@ -88,8 +88,8 @@
                     </a>
                     {% if loggedin %}
                         <div class="listedocu_admin">
-                            <a href="{{ url_for('suppPost', titre = docu[0], auteur = docu[1], description = docu[5]) }}">
-                                <div class="listedocu_admin_button">
+                            <a href="{{ url_for('suppPost', titre = docu[0], auteur = docu[1], description = docu[5]) }}" id="suppression-document">
+                                <div class="listedocu_admin_button" >
                                     <i class="uil uil-trash-alt listedocu_admin_icon"></i>
                                 </div>
                             </a>
