@@ -57,12 +57,25 @@ def afficheTout():
     return myresult
 
 def uploadDB(file, auteur, tags, description, annee, type_doc, matiere):
+    db = loadDB()
+    mycursor = db.cursor()
+
 
     tags = tags.split(";")
     tags = [tag.strip() for tag in tags]
     titre = file.filename.replace("_", " ")
+    titre = titre.replace("/", "-")
     titre = titre.replace(".pdf", "")
 
+    # check if the filename is already in the database
+    sql = "SELECT titre FROM Documents WHERE titre = %s"
+    val = (titre,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    if len(myresult) != 0:
+        db.close()
+        return False
+    
     tags.append(titre)
     tags.append(annee)
     tags.append(type_doc)
@@ -73,9 +86,6 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere):
     tags = [tag.lower() for tag in tags]
     tags = list(dict.fromkeys(tags))
     tags = [tag for tag in tags if tag != ""]
-
-    db = loadDB()
-    mycursor = db.cursor()
 
     # TEMPORAIRE
     specialite = "ICy"
@@ -112,6 +122,7 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere):
 
     db.commit()
     db.close()
+    return True
 
 def supprimePDF(titre, auteur, description):
     db = loadDB()
@@ -120,7 +131,6 @@ def supprimePDF(titre, auteur, description):
     val = (titre, auteur, description,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchall()
-    print("\n\n AAAAAAAAAAAA -", myresult, "- AAAAAAAAAAAA \n\n")
     id_doc = myresult[0][0]
 
     # supprime les éléments de la table Referencement
@@ -136,8 +146,8 @@ def supprimePDF(titre, auteur, description):
     db.commit()
     db.close()
 
-    if path.exists("/static/pdf/" + titre + ".pdf"):
-        remove(titre + ".pdf")
+    if path.exists("static/pdf/" + titre + ".pdf"):
+        remove("static/pdf/" + titre + ".pdf")
 
 def getInfos(titre, auteur, description):
     db = loadDB()
