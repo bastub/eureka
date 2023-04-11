@@ -24,6 +24,12 @@ def log(action, titre):
     heure = today.strftime("%H:%M:%S")
 
     with open("static/log/log.txt", "a") as log:
+        # si le fichier dépasse 10 000 lignes, on le renomme et on en crée un nouveau
+        if len(log.readlines()) > 10000:
+            log.close()
+            rename("static/log/log.txt", "static/log/log_old.txt")
+            log = open("static/log/log.txt", "a")
+            log.write(str(hostname + " : " + ip_address) + " " + str(today) + " " + heure + " " + action + " " + titre + ".pdf")
         log.write(str(hostname + " : " + ip_address) + " " + str(today) + " " + heure + " " + action + " " + titre + ".pdf")
 
 def recherchePDF(tag):
