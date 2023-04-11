@@ -1,9 +1,7 @@
 import mysql.connector
 from dotenv import load_dotenv
 from os import getenv, path, remove, rename
-import requests
 from datetime import date
-import socket
 
 load_dotenv()
 
@@ -16,23 +14,13 @@ def loadDB():
     )
     return db
 
-def log(action, titre): 
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
+def log(action, titre, utilisateur="Undefined"): 
     
     today = date.today()
     heure = today.strftime("%H:%M:%S")
 
     with open("static/log/log.txt", "a") as log:
-        # # si le fichier dépasse 10 000 lignes, on le renomme et on en crée un nouveau
-        # if len(log.readlines()) > 10000:
-        #     log.close()
-        #     if path.exists("static/log/log_old.txt"):
-        #         remove("static/log/log_old.txt")
-        #     rename("static/log/log.txt", "static/log/log_old.txt")
-        #     log = open("static/log/log.txt", "a")
-        #     log.write(str(hostname + " : " + ip_address) + " " + str(today) + " " + heure + " " + action + " " + titre + ".pdf")
-        log.write(str(hostname + " : " + ip_address) + " " + str(today) + " " + heure + " " + action + " " + titre + ".pdf")
+        log.write(utilisateur + " " + str(today) + " " + heure + " " + action + " " + titre + ".pdf\n")
 
 def recherchePDF(tag):
     db = loadDB()
