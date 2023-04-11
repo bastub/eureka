@@ -1,7 +1,10 @@
 import mysql.connector
 from dotenv import load_dotenv
 from os import getenv, path, remove, rename
+import requests
 from datetime import date
+import socket
+
 load_dotenv()
 
 def loadDB():
@@ -12,6 +15,16 @@ def loadDB():
         database = "eureka"
     )
     return db
+
+def log(action, titre): 
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    
+    today = date.today()
+    heure = today.strftime("%H:%M:%S")
+
+    with open("static/log/log.txt", "a") as log:
+        log.write(str(hostname + " : " + ip_address) + " " + str(today) + " " + heure + " " + action + " " + titre + ".pdf")
 
 def recherchePDF(tag):
     db = loadDB()
@@ -127,6 +140,8 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere, source):
 
     db.commit()
     db.close()
+
+    log("Ajout", titre)
     return True
 
 def supprimePDF(titre, auteur, description):
@@ -153,6 +168,8 @@ def supprimePDF(titre, auteur, description):
 
     if path.exists("static/pdf/" + titre + ".pdf"):
         remove("static/pdf/" + titre + ".pdf")
+
+    log("Suppression", titre)
 
 def getInfos(titre, auteur, description):
     db = loadDB()
@@ -241,3 +258,5 @@ def modifiePDF(titre, auteur, description, newTitre, newAuteur, newDescription, 
     
     db.commit()
     db.close()
+
+    log("Modification", titre)
