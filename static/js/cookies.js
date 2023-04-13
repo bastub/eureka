@@ -1,7 +1,10 @@
 function toggleTheme() {
-    if (document.cookie == "theme=dark" || document.cookie == "theme=pink") document.cookie = "theme=light; path=/; expires=Thu, 18 Dec 9999 12:00:00 UTC";
- 
-    else document.cookie = "theme=dark;path=/; expires=Thu, 18 Dec 9999 12:00:00 UTC";
+    cookies = document.cookie.split("; ");
+
+    if (cookies[1] == "theme=dark" || cookies[1] == "theme=pink" || cookies[0] == "theme=dark" || cookies[0] == "theme=pink") document.cookie = "theme=light; path=/; expires=Thu, 18 Dec 9999 12:00:00 UTC";
+    else document.cookie = "theme=dark; path=/; expires=Thu, 18 Dec 9999 12:00:00 UTC";
+
+    console.log(document.cookie);
 
     location.reload();
 }
