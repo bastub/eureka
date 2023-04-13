@@ -81,6 +81,11 @@ body {
     font-size: var(--normal-font-size);
     background-color: var(--background-col1);
     color: var(--text-col1);
+    min-height: calc(100vh - 2 * var(--header-height));
+}
+
+main {
+    min-height: calc(100vh - 2 * var(--header-height));
 }
 
 h1 {
@@ -143,8 +148,6 @@ a::selection {
 }
 
 .footer {
-    position: relative;
-    bottom: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -263,6 +266,40 @@ a::selection {
 .bouton_theme:hover {
     background-color: var(--dark-col1);
     transition: background-color .2s;
+}
+
+.avertissement {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: var(--z-modal);
+    background-color: var(--col1);
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.avertissement h1, 
+.avertissement p {
+    color: var(--lighter-col1);
+}
+
+#bouton-ferme {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    background-color: transparent;
+    color: var(--lighter-col1);
+    font-size: var(--h1-font-size);
+    cursor: pointer;
+}
+
+#bouton-ferme:hover {
+    color: var(--dark-col1);
 }
 
 
