@@ -54,7 +54,7 @@ Le projet nécessite une connexion à une base de données MySQL.
 - host_db = "url de la base de données"
 - user_db = "utilisateur de la base de données"
 - password_db = "mot de passe de l'utilisateur"
-- secret_key = "clé secrète pour FLask"
+- secret_key = "clé secrète pour Flask"
 - virusTotalAPI = "la clé API de VirusTotal pour le scan des fichiers"
 
 Le projet peut simplement être exécuté en utilisant la commande : 
