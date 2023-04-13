@@ -8,7 +8,7 @@ function toggleTheme() {
 
 function closePopUp() {
     document.cookie = "avertissement=false; path=/; expires=Thu, 18 Dec 9999 12:00:00 UTC";
-    document.getElementById("avertissement").style.display = "none";
+    document.getElementById("avertissement").classList.add("avertissement_hidden");
 }
 
 document.getElementById("bouton-theme").addEventListener("click", ()=>{toggleTheme()});
