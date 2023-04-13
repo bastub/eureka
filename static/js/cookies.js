@@ -1,5 +1,5 @@
 function toggleTheme() {
-    if (document.cookie == "theme=dark") document.cookie = "theme=light; path=/; expires=Thu, 18 Dec 9999 12:00:00 UTC";
+    if (document.cookie == "theme=dark" || document.cookie == "theme=pink") document.cookie = "theme=light; path=/; expires=Thu, 18 Dec 9999 12:00:00 UTC";
  
     else document.cookie = "theme=dark;path=/; expires=Thu, 18 Dec 9999 12:00:00 UTC";
 
