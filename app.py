@@ -63,6 +63,7 @@ def recherche():
 @app.route("/search")
 def tout():
     cookie = request.cookies.get('theme', default="light")
+    avertissement = request.cookies.get('avertissement', default="true")
     return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), annee = 0, theme = cookie, avertissement = avertissement)
 
 @app.route("/supprime")
