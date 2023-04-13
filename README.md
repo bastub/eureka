@@ -1,8 +1,5 @@
-<center>
-
 # Eureka
 
-</center>
 
 Eureka est une plateforme communautaire de partage de notes de cours, TD et autres ressources pour les étudiants en Informatique et Cybersécurité de l'INSA Hauts-de-France.  
 Le site est disponible à l'adresse suivante : [eurekainsahdf.fr](https://eurekainsahdf.fr)  
