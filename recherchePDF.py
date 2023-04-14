@@ -1,7 +1,9 @@
+from threading import Thread
 import mysql.connector
 from dotenv import load_dotenv
 from os import getenv, path, remove, rename
 from datetime import date
+import time
 
 load_dotenv()
 
@@ -140,6 +142,13 @@ def uploadDB(file, auteur, tags, description, annee, type_doc, matiere, source):
     log("Ajout", titre)
     return True
 
+def deletePDF(titre):
+    # wait until the file is not used by another process
+    while not open("static/pdf/" + titre + ".pdf", "rb").readable():
+        time.sleep(10)
+        pass
+    remove("static/pdf/" + titre + ".pdf")
+
 def supprimePDF(titre, auteur, description):
     db = loadDB()
     mycursor = db.cursor()
@@ -163,6 +172,10 @@ def supprimePDF(titre, auteur, description):
     db.close()
 
     if path.exists("static/pdf/" + titre + ".pdf"):
+        #TODO
+        # supp = Thread(target=deletePDF, args=(titre,))
+        # supp.start()
+
         remove("static/pdf/" + titre + ".pdf")
 
     log("Suppression", titre)

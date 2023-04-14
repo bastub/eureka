@@ -32,10 +32,6 @@ def scanPDF(pdfFile, titre, auteur, description, apiKey=apiKey):
 
     response = requests.get(url, headers=headers)
 
-    # affiche la réponse en texte brut
-
-    print(response.text)
-
 
     if response.status_code != 200:
         supprimePDF(titre, auteur, description)
@@ -45,7 +41,7 @@ def scanPDF(pdfFile, titre, auteur, description, apiKey=apiKey):
         status = response.get("data").get("attributes").get("status")
 
     while status != "completed":
-        time.sleep(10)
+        time.sleep(300)
         response = requests.get(url, headers=headers)
         response = response.json()
         status = response.get("data").get("attributes").get("status")

@@ -219,9 +219,10 @@ def uploadPost():
             if res == False:
                 return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Erreur lors de l'upload", theme = cookie)
             
+            # TODO
             # use scanPDF in another thread
-            thread = Thread(target=scanPDF, args=(file.filename, titre, auteur, description))
-            thread.start()
+            # thread = Thread(target=scanPDF, args=(file.filename, titre, auteur, description))
+            # thread.start()
 
             return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = titre + " uploadé", theme = cookie)
     return redirect(url_for('login'))
