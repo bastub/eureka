@@ -242,7 +242,7 @@ def login():
         utilisateur = utilisateur[0] if utilisateur else None
         if utilisateur is None:
             msg = "Nom d'utilisateur ou mot de passe invalide."
-            return render_template('login.html', msg = msg)
+            return render_template('login.html', msg = msg, theme = cookie, avertissement = avertissement)
         utilisateur = utilisateur.encode('utf-8')
         utilisateur = bcrypt.hashpw(utilisateur, salt)
         if utilisateur == password:
