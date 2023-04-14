@@ -1,6 +1,5 @@
 # Eureka
 
-
 Eureka est une plateforme communautaire de partage de notes de cours, TD et autres ressources pour les étudiants en Informatique et Cybersécurité de l'INSA Hauts-de-France.  
 Le site est disponible à l'adresse suivante : [eurekainsahdf.fr](https://eurekainsahdf.fr)  
 Ce site est développé par le club informatique de l'INSA Hauts-de-France, `./insa.sh`
@@ -12,6 +11,7 @@ Il aura pour but de s'étendre à toutes les années ainsi que spécialités de 
 
 Le site est déjà en ligne et fonctionnel, cependant il est encore en développement.  
 Voici les fonctionnalités déjà implémentées :
+
 - Authentification administrateur sécurisée
 - Dépôt, modification et suppression de ressources
 - Consultation des ressources
@@ -27,6 +27,7 @@ Voici les fonctionnalités déjà implémentées :
 ## Fonctionnalités en cours de développement
 
 Un certain nombre de fonctionnalités ne sont pas encore implémentées, voici la liste :
+
 - Système de vote pour les ressources
 - Gestion de modérateurs
 - inclusion d'autres spécialités
@@ -54,6 +55,6 @@ Le projet nécessite une connexion à une base de données MySQL.
 - secret_key = "clé secrète pour Flask"
 - virusTotalAPI = "la clé API de VirusTotal pour le scan des fichiers"
 
-Le projet peut simplement être exécuté en utilisant la commande : 
+Le projet peut simplement être exécuté en utilisant la commande :
 
 `python3 app.py`
