@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-	<head>
-		<title>Eurêka - {% block titre %}{% endblock %}</title>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="stylesheet"
-			href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-		/>
-		{% if theme == "light" %}
-		<link
-			id="head-theme"
-			rel="stylesheet"
-			href="{{ url_for('static',filename='css/style.css')}}"
-		/>
-		{% elif theme == "dark" %}
-		<link
-			id="head-theme"
-			rel="stylesheet"
-			href="{{ url_for('static',filename='css/style-sombre.css')}}"
-		/>
-		{% else %}
-		<link
-			id="head-theme"
-			rel="stylesheet"
-			href="{{ url_for('static',filename='css/style-rose.css')}}"
-		/>
-		{% endif %}
-		<link rel="icon" type="image/x-icon" href="/static/img/logo.png" />
-		<script
-			src="{{ url_for('static',filename='js/cookies.js')}}"
-			defer
-		></script>
-	</head>
+  <head>
+    <title>Eurêka - {% block titre %}{% endblock %}</title>
+        <meta description="Eureka: la plateforme de partage de cours de l'INSA Hauts-de-France">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    {% if theme == "light" %}
+    <link
+      id="head-theme"
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/style.css')}}"
+    />
+    {% elif theme == "dark" %}
+    <link
+      id="head-theme"
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/style-sombre.css')}}"
+    />
+    {% else %}
+    <link
+      id="head-theme"
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/style-rose.css')}}"
+    />
+    {% endif %}
+    <link rel="icon" type="image/x-icon" href="/static/img/logo.png" />
+    <script
+      src="{{ url_for('static',filename='js/cookies.js')}}"
+      defer
+    ></script>
+  </head>
 
 	<body>
 		<!-- ===== HEADER ===== -->
