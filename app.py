@@ -1,3 +1,4 @@
+from threading import Thread
 from flask import Flask, session, url_for, render_template, redirect, request
 from recherchePDF import getInfos, modifiePDF, recherchePDF, afficheTout, supprimePDF, uploadDB, rechercheListePDF
 from fetchPeriode import getDictAll, listeMatAnnees, getDictPeriode
@@ -6,6 +7,7 @@ from dotenv import load_dotenv
 from os import getenv
 import bcrypt
 from collections import Counter
+from scanPDF import scanPDF, isPDF
 
 load_dotenv()
 listMatMenu = listeMatAnnees()
@@ -194,13 +196,6 @@ def uploadPost():
         if session['loggedin']:
             file = request.files['file']
             auteur, tags, description, titre, source = request.form['auteur'], request.form['tags'], request.form['description'], request.form['titre'], request.form['source']
-            
-            if titre is not None and titre != "":
-                file.filename = titre + ".pdf"
-            
-            annee, type_doc, matiere = request.form['annee'], request.form['type_doc'], request.form['matiere']
-
-            res = uploadDB(file, auteur, tags, description, annee, type_doc, matiere, source)
 
             mat = []
             for i in range(3, 6):
@@ -209,10 +204,27 @@ def uploadPost():
             for i in range(0, len(mat)):
                 for j in range(0, len(mat[i])):
                     dict.update(mat[i][j])
-            if res == False:
-                return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Erreur lors de l'upload", theme = cookie, avertissement = avertissement)
+
+            if isPDF(file.filename) == False:
+                return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Le fichier n'est pas au format PDF", theme = cookie)
+
+            if titre is not None and titre != "":
+                file.filename = titre + ".pdf"
             
-            return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = titre + " uploadé", theme = cookie, avertissement = avertissement)
+            annee, type_doc, matiere = request.form['annee'], request.form['type_doc'], request.form['matiere']
+
+            res = uploadDB(file, auteur, tags, description, annee, type_doc, matiere, source)
+
+            
+            if res == False:
+                return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Erreur lors de l'upload", theme = cookie)
+            
+            # TODO
+            # use scanPDF in another thread
+            # thread = Thread(target=scanPDF, args=(file.filename, titre, auteur, description))
+            # thread.start()
+
+            return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = titre + " uploadé", theme = cookie)
     return redirect(url_for('login'))
 
 
@@ -242,7 +254,7 @@ def login():
         utilisateur = utilisateur[0] if utilisateur else None
         if utilisateur is None:
             msg = "Nom d'utilisateur ou mot de passe invalide."
-            return render_template('login.html', msg = msg)
+            return render_template('login.html', msg = msg, theme = cookie, avertissement = avertissement)
         utilisateur = utilisateur.encode('utf-8')
         utilisateur = bcrypt.hashpw(utilisateur, salt)
         if utilisateur == password:
