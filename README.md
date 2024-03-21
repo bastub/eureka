@@ -74,10 +74,10 @@ Un certain nombre de fonctionnalités ne sont pas encore implémentées, voici l
 
 ## Modules requis
 
-- Flask==2.2.2
-- mysql_connector_repackaged==0.3.1
-- python-dotenv==1.0.0
-- python_bcrypt==0.3.2
+- Flask
+- mysql_connector_python_
+- python-dotenv
+- bcrypt
 
 Un fichier `requirements.txt` est disponible à la racine du projet.
 
