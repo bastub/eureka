@@ -5,6 +5,7 @@
 {% block matieres %} 
 
 {% for i in range(3, 6) %}
+    {% set a, b = (1, 4) if i == 3 else ((3, 4) if i == 4 else (1, 2)) %}
     <div class="navbar">
         {% set anneeCours = i %}
         <div class="navbar_pc">
@@ -25,11 +26,11 @@
                 </button>
         </div>
         <div class="navbar_links">
-            {% for j in range(1, 5) %}
+            {% for j in range(a, b+1) %}
                 <div class="dropdown">
                     <button class="dropbtn">P{{ j }}</button>
                     <div class="dropdown_content">
-                        {% for key, val in listeMatieres[i-3][j-1].items() %}
+                        {% for key, val in listeMatieres[i-3][j-a].items() %}
                             <a href="{{ url_for('annee', annee=anneeCours, matiere=val) }}">{{ key }}</a>
                         {% endfor %}
                     </div>

@@ -1,7 +1,5 @@
 Cryptographie : cryptographie
-Automates et langages : automates_langages
 Fondements de la sécurité : fondements_securite
-Développement mobile : dev_mobile
 Graphes et algorithmes : graphes_algos
 Infographie : infographie
 Réseaux TCP/IP : reseaux

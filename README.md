@@ -75,9 +75,10 @@ Un certain nombre de fonctionnalités ne sont pas encore implémentées, voici l
 ## Modules requis
 
 - Flask
-- mysql_connector_python_
+- mysql_connector_python
 - python-dotenv
 - bcrypt
+- requests
 
 Un fichier `requirements.txt` est disponible à la racine du projet.
 
@@ -96,3 +97,4 @@ Le projet nécessite une connexion à une base de données MySQL.
 Le projet peut simplement être exécuté en utilisant la commande :
 
 `python3 app.py`
+    

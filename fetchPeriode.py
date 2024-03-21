@@ -1,9 +1,14 @@
+from pathlib import Path
+
 def getDictPeriode(annee):
     # liste avec les matieres de chaque periode
     liste = []
     for i in range(1, 5):
         nameToDb = {}
         nom = "static/listeMatieres/"+ str(annee) + "/" + str(i)+".txt"
+        nom_path = Path(nom)
+        if not nom_path.exists():
+            continue
         with open(nom, "r") as f:
             for line in f:
                 (key, val) = line.split(":")
