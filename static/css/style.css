@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&family=Roboto+Mono:wght@500&family=Yeseva+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:wght@500&family=Yeseva+One&display=swap");
 
 /* ===== VARIABLES ===== */
 
@@ -12,6 +12,7 @@
   --col1: hsl(var(--color1), 20%, 52%);
   --dark-col1: hsl(var(--color1), 20%, 20%);
   --light-col1: hsl(var(--color1), 20%, 65%);
+  --lighter1-col1: hsl(var(--color1), 20%, 93%);
   --lighter-col1: hsl(var(--color1), 20%, 98%);
   --text-col1: hsl(var(--color1), 20%, 10%);
   --title-col1: hsl(var(--color1), 20%, 35%);
@@ -22,7 +23,7 @@
   --divers-col: #ff6d00;
 
   /* === Police === */
-  --body-font: "Montserrat", sans-serif;
+  --body-font: "Poppins", sans-serif;
   --title-font: "Yeseva One", cursive;
 
   --big-font-size: 10rem;
@@ -150,6 +151,8 @@ a::selection {
   justify-content: center;
   width: 100%;
   height: var(--header-height);
+  background-color: var(--dark-col1);
+  color: var(--lighter-col1);
 }
 
 .nav_left {
@@ -246,7 +249,7 @@ a::selection {
   justify-content: center;
   position: fixed;
   top: calc(var(--header-height) + 1rem);
-  left: 1rem;
+  right: 1rem;
   border: none;
   background-color: var(--col1);
   color: var(--lighter-col1);
@@ -463,7 +466,7 @@ a::selection {
   font-size: var(--big-font-size);
   font-weight: var(--font-bold);
   color: var(--dark-col1);
-  text-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+  /* text-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px; */
 }
 
 .index_title_alt {
@@ -494,9 +497,20 @@ a::selection {
   height: 2.5rem;
   border: 2px solid var(--lighter-col1);
   border-radius: 5rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
   padding: 0 1rem 0 1rem;
-  background-color: white;
+  background-color: var(--lighter1-col1);
+  transition: border 0.1s, background-color 0.1s;
+}
+
+.index_searchbar::placeholder,
+.searchbar::placeholder {
+  color: #AAA;
+}
+
+.index_searchbar:focus {
+  border: 2px solid var(--col1);
+  background-color: var(--background-col1);
+  transition: border 0.2s, background-color 0.2s;
 }
 
 @media screen and (max-width: 992px) {
@@ -510,7 +524,7 @@ a::selection {
 .menu_searchbar {
   width: 40vw;
   height: 1.5rem;
-  border: 0px;
+  border: 0;
   border-radius: 2.5vh;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   padding: 0 1rem 0 1rem;
@@ -552,13 +566,14 @@ a::selection {
   padding: 1rem;
   border: 2px solid var(--lighter-col1);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  transition: box-shadow 0.1s;
+  transition: box-shadow 0.1s, scale 0.1s;
   border-radius: 0.5rem;
 }
 
 .listedocu_etiquette:hover {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
-  transition: box-shadow 0.2s;
+  scale: 1.01;
+  transition: box-shadow 0.2s, scale 0.2s;
 }
 
 .pastille_titre {
@@ -656,17 +671,16 @@ a::selection {
 
 .legende {
   position: fixed;
-  top: calc(var(--header-height) + 1rem);
-  right: 1rem;
+  top: calc(var(--header-height) + 1.2rem);
+  left: 1.2rem;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 1fr 1fr;
   gap: 1rem;
   border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
-  background-color: var(--background-col1);
-  border: 2px solid var(--lighter-col1);
+  padding: 0;
+  background-color: transparent;
+  align-items: center;
 }
 
 @media screen and (max-width: 1200px) {
@@ -683,9 +697,15 @@ a::selection {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 30px;
+
+  p {
+    text-align: justify;
+    text-indent: 5%;
+    width: 100%;
+  }
 }
 
 .about_barre {
