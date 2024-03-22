@@ -10,8 +10,10 @@
 
   /* Variations */
   --col1: hsl(var(--color1), 20%, 52%);
+  --transparent-col1: hsla(var(--color1), 20%, 52%, 0.3);
   --dark-col1: hsl(var(--color1), 20%, 20%);
   --light-col1: hsl(var(--color1), 20%, 65%);
+  --lighter2-col1: hsl(var(--color1), 20%, 90%);
   --lighter1-col1: hsl(var(--color1), 20%, 93%);
   --lighter-col1: hsl(var(--color1), 20%, 98%);
   --text-col1: hsl(var(--color1), 20%, 10%);
@@ -124,8 +126,7 @@ h3::selection,
 p::selection,
 b::selection,
 a::selection {
-  background-color: var(--col1);
-  color: var(--lighter-col1);
+  background-color: var(--transparent-col1);
 }
 
 /* ===== LAYOUT ===== */
@@ -231,8 +232,7 @@ a::selection {
 }
 
 .container_title::selection {
-  background-color: var(--col1);
-  color: var(--lighter-col1);
+  background-color: var(--transparent-col1);
 }
 
 .center {
@@ -462,6 +462,8 @@ a::selection {
 }
 
 .index_title {
+  display: flex;
+  flex-direction: row;
   font-family: var(--title-font);
   font-size: var(--big-font-size);
   font-weight: var(--font-bold);
@@ -471,12 +473,14 @@ a::selection {
 
 .index_title_alt {
   color: var(--col1);
+  rotate: -30deg;
 }
+
+
 
 .index_title::selection,
 .index_title_alt::selection {
-  background-color: var(--col1);
-  color: var(--lighter-col1);
+  background-color: var(--transparent-col1);
 }
 
 .searchbar {
@@ -488,14 +492,13 @@ a::selection {
 }
 
 .searchbar::selection {
-  background-color: var(--col1);
-  color: var(--lighter-col1);
+  background-color: var(--transparent-col1);
 }
 
 .index_searchbar {
   width: 40rem;
   height: 2.5rem;
-  border: 2px solid var(--lighter-col1);
+  border: 3px solid var(--lighter-col1);
   border-radius: 5rem;
   padding: 0 1rem 0 1rem;
   background-color: var(--lighter1-col1);
@@ -507,8 +510,13 @@ a::selection {
   color: #AAA;
 }
 
+.index_searchbar:hover {
+  background-color: var(--lighter2-col1);
+  transition: border 0.2s, background-color 0.2s;
+}
+
 .index_searchbar:focus {
-  border: 2px solid var(--col1);
+  border: 3px solid var(--col1);
   background-color: var(--background-col1);
   transition: border 0.2s, background-color 0.2s;
 }
@@ -530,6 +538,10 @@ a::selection {
   padding: 0 1rem 0 1rem;
   margin-left: 2rem;
   width: 45vw;
+}
+
+.menu_searchbar:hover {
+  background-color: var(--lighter1-col1);
 }
 
 @media screen and (max-width: 768px) {
@@ -809,8 +821,7 @@ a::selection {
 
 #password::selection,
 #username::selection {
-  background-color: var(--col1);
-  color: var(--lighter-col1);
+  background-color: var(--transparent-col1);
 }
 
 #connexion {
@@ -974,8 +985,7 @@ select:hover {
 #boutonUpload::selection,
 .bouton::selection,
 .champ::selection {
-  background-color: var(--col1);
-  color: var(--lighter-col1);
+  background-color: var(--transparent-col1);
 }
 
 .upload_msg {
