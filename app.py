@@ -1,25 +1,17 @@
 from threading import Thread
 from flask import Flask, session, url_for, render_template, redirect, request
 from recherchePDF import getInfos, modifiePDF, recherchePDF, afficheTout, supprimePDF, uploadDB, rechercheListePDF
-from fetchPeriode import getDictAll, listeMatAnnees, getDictPeriode
-import mysql.connector
+from fetchPeriode import getDictAll, listeMatAnnees, getDictPeriode, getDictMatieresActives, getReverseDictMat
 from dotenv import load_dotenv
 from os import getenv
 import bcrypt
 from collections import Counter
 from scanPDF import scanPDF, isPDF
+from database import loadDB
 
 load_dotenv()
 listMatMenu = listeMatAnnees()
 
-def loadDB():
-    db = mysql.connector.connect(
-        host = getenv("host_db"),
-        user = getenv("user_db"),
-        password = getenv("password_db"),
-        database = "eureka"
-    )
-    return db
 
 app = Flask(__name__)
 app.secret_key = getenv("secret_key")
@@ -37,7 +29,7 @@ def loggedin() :
 def index():
     cookie = request.cookies.get('theme', default="light")
     avertissement = request.cookies.get('avertissement', default="true")
-    return render_template("index.html", listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), theme = cookie, avertissement = avertissement)
+    return render_template("index.html", listeMatieres = getReverseDictMat(), dictMatActives = getDictMatieresActives(), loggedin = loggedin(), theme = cookie, avertissement = avertissement)
 
 
 # MENU
@@ -57,16 +49,16 @@ def recherche():
         docs = [item for items, c in Counter(docs).most_common()
                                       for item in [items] * c]
         docs = list(dict.fromkeys(docs))
-        return render_template("menu.html", listeDocu = docs, listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), annee = 0, theme = cookie, avertissement = avertissement)
+        return render_template("menu.html", listeDocu = docs, listeMatieres = getReverseDictMat(), dictMatActives = getDictMatieresActives(), loggedin = loggedin(), annee = 0, theme = cookie, avertissement = avertissement)
     
     
-    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), annee = 0, theme = cookie, avertissement = avertissement)
+    return render_template("menu.html", listeDocu = afficheTout(), listeMatieres = getReverseDictMat(), dictMatActives = getDictMatieresActives(), loggedin = loggedin(), annee = 0, theme = cookie, avertissement = avertissement)
 
 @app.route("/search")
 def tout():
     cookie = request.cookies.get('theme', default="light")
     avertissement = request.cookies.get('avertissement', default="true")
-    return render_template("menu.html", listeDocu = afficheTout(), listeAnnees = listMatMenu, listeMatieres = getDictAll(), loggedin = loggedin(), annee = 0, theme = cookie, avertissement = avertissement)
+    return render_template("menu.html", listeDocu = afficheTout(), listeMatieres = getReverseDictMat(), dictMatActives = getDictMatieresActives(), loggedin = loggedin(), annee = 0, theme = cookie, avertissement = avertissement)
 
 @app.route("/supprime")
 def suppPost():
@@ -158,7 +150,7 @@ def annee():
     liste = rechercheListePDF(listerecherche, int(annee), matiere)
     liste = [item for sublist in liste for item in sublist]
 
-    return render_template("menu.html", listeDocu=liste, listeMatieres=listeMatieres, annee=annee, loggedin = loggedin(), theme = cookie, avertissement = avertissement)
+    return render_template("menu.html", listeDocu=liste, listeMatieres = getReverseDictMat(), dictMatActives = getDictMatieresActives(), annee=annee, loggedin = loggedin(), theme = cookie, avertissement = avertissement)
 
 @app.route("/divers", methods=['GET'])
 def divers():
@@ -167,7 +159,7 @@ def divers():
     listeMatieres = getDictAll()
     liste = rechercheListePDF(["divers", "Autre"], 6)
     liste = [item for sublist in liste for item in sublist]
-    return render_template("menu.html", listeDocu=liste, listeMatieres=listeMatieres, annee=0, loggedin = loggedin(), theme = cookie, avertissement = avertissement)
+    return render_template("menu.html", listeDocu=liste, listeMatieres = getReverseDictMat(), dictMatActives = getDictMatieresActives(), annee=0, loggedin = loggedin(), theme = cookie, avertissement = avertissement)
 
 # UPLOAD
 

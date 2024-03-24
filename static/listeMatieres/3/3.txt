@@ -1,6 +1,6 @@
 Cryptographie : cryptographie
 Fondements de la sécurité : fondements_securite
 Graphes et algorithmes : graphes_algos
-Infographie : infographie
+Infographie 2 : infographie_2
 Réseaux TCP/IP : reseaux
 Programmation fonctionnelle : prog_fonctionnelle

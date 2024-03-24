@@ -2,43 +2,44 @@
 
 {% block titre %}Accueil{% endblock %}
 
-{% block matieres %} 
+{% block matieres %}
 
-{% for i in range(3, 6) %}
-    {% set a, b = (1, 4) if i == 3 else ((3, 4) if i == 4 else (1, 2)) %}
-    <div class="navbar">
-        {% set anneeCours = i %}
-        <div class="navbar_pc">
-            <a href = "{{ url_for('annee', annee=i) }}" class="bandeau">
+    {% for year, periods in dictMatActives.items() %}
+        <div class="navbar">
+            <div class="navbar_pc">
+                <a href = "{{ url_for('annee', annee=year) }}" class="bandeau">
+                    <button class="navbar_toggle">
+                        <div class="navbar_annee">
+                            <span>{{ year }}A</span>
+                        </div>
+                    </button>
+                </a>
+            </div>
+
+            <div class="navbar_tab">
                 <button class="navbar_toggle">
                     <div class="navbar_annee">
-                    <span>{{i}}A</span>
+                        <span>{{ year }}A</span>
                     </div>
                 </button>
-            </a>
-        </div>
+            </div>
 
-        <div class="navbar_tab">
-                <button class="navbar_toggle">
-                    <div class="navbar_annee">
-                    <span>{{i}}A</span>
+            <div class="navbar_links">
+                {% for period, mats in periods.items() %}
+                    <div class="dropdown">
+                        <button class="dropbtn">P{{ period }}</button>
+                        <div class="dropdown_content">
+                            {% for mat in mats %}
+                                {% set matName = listeMatieres[mat] %}
+                                <a href="{{ url_for('annee', annee=year, matiere=mat) }}">{{ matName }}</a>
+                            {% endfor %}
+                        </div>
                     </div>
-                </button>
+                {% endfor %}
+            </div>
         </div>
-        <div class="navbar_links">
-            {% for j in range(a, b+1) %}
-                <div class="dropdown">
-                    <button class="dropbtn">P{{ j }}</button>
-                    <div class="dropdown_content">
-                        {% for key, val in listeMatieres[i-3][j-a].items() %}
-                            <a href="{{ url_for('annee', annee=anneeCours, matiere=val) }}">{{ key }}</a>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-{% endfor %}
+    {% endfor %}
+
     <div class="bouton_divers_div" id="bouton-divers-div">
         <a href="{{ url_for('divers') }}">
             <button class="bouton_divers" id="bouton-divers">Divers</button>

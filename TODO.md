@@ -1,0 +1,2 @@
+- creer utilisateur non admin pour la base de données
+- migrer les données de la base de données

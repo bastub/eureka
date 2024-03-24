@@ -323,7 +323,7 @@ a::selection {
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1201px) {
   .navbar_tab {
     display: none;
   }
@@ -335,8 +335,7 @@ a::selection {
   border: none;
   padding: 0;
   cursor: pointer;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  width: 4.5rem;
   z-index: var(--z-modal);
 }
 
@@ -355,12 +354,13 @@ a::selection {
   background-color: var(--dark-col1);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: var(--z-modal);
+  width: calc(var(--header-height)+ 10px);
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
-  width: 100%;
+  width: 4.5rem;
   z-index: var(--z-modal);
 }
 
@@ -407,7 +407,6 @@ a::selection {
   align-items: center;
   justify-content: center;
   height: var(--header-height);
-  width: calc(var(--header-height)+ 1rem);
   font-family: var(--body-font);
   font-size: var(--nav-font-size);
   font-weight: var(--font-medium);
@@ -435,18 +434,10 @@ a::selection {
   cursor: pointer;
 }
 
-@media screen and (max-width: 1200px) {
-  .bouton_divers {
-    padding: 0 0.5rem 0 0.5rem;
-  }
-
-  .navbar_annee {
-    width: calc(var(--header-height)+ 0.5rem);
-  }
-
-  .navbar_toggle {
-    padding-left: 1rem;
-    padding-right: 1rem;
+@media screen and (max-width: 992px) {
+  .navbar_toggle,
+  .dropdown {
+    width: 3.5rem;
   }
 }
 
@@ -530,21 +521,31 @@ a::selection {
 /* ===== MENU ===== */
 
 .menu_searchbar {
-  width: 40vw;
+  position: fixed;
   height: 1.5rem;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   border: 0;
   border-radius: 2.5vh;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   padding: 0 1rem 0 1rem;
-  margin-left: 2rem;
-  width: 45vw;
+  width: 50vw;
 }
+
+
 
 .menu_searchbar:hover {
   background-color: var(--lighter1-col1);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
+  .menu_searchbar {
+    left: 60%;
+  }
+}
+
+@media screen and (max-width: 992px) {
   .menu_searchbar {
     display: none;
   }
