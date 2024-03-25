@@ -1,2 +1,4 @@
 - creer utilisateur non admin pour la base de données
 - migrer les données de la base de données
+- Ajouter la période (upload)
+- Rendre dynamique l'upload (avec année et spécialité)

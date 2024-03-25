@@ -271,7 +271,7 @@ def logout():
     session.pop('loggedin', None)
     session.pop('pseudo', None)
 
-    return render_template('index.html', listeMatieres = getDictAll(), loggedin = False, theme = cookie, avertissement = avertissement)
+    return render_template('index.html', listeMatieres = getReverseDictMat(), dictMatActives = getDictMatieresActives(), loggedin = False, theme = cookie, avertissement = avertissement)
 
 
 # ABOUT
