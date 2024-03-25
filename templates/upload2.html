@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block titre %}Upload{% endblock %}
+
+{% block main %}
+
+<div class="container container_upload" id="container-upload">
+    <div class="container_title">Upload</div>
+    <form class="upload_form" action="{{ url_for('uploadPost') }}" method="POST" enctype="multipart/form-data">
+        <div id="depot">
+            <label for="fichier" class="bouton">Sélectionner un fichier</label>
+            <input type="file" id="fichier" name="file" accept=".pdf" required>
+            
+            <div class="msgFichier">
+                <p>Aucun fichier sélectionné</p>
+            </div>
+        </div>
+
+        <div id="champs">
+            <div class="upload_grid_1">
+                <input type="text" name="titre" placeholder="Titre" class="champ_grid" required> 
+            </div>
+            <div class="upload_grid_2">
+                <input type="text" name="auteur" placeholder="Auteur" class="champ_grid" required>
+                <input type="text" name="source" placeholder="Source" class="champ_grid" required>
+            </div>
+            <div class="upload_grid_1">
+                <input type="text" name="tags" placeholder="Tags" class="champ_grid" required>
+            </div>
+            <div class="upload_grid_1">
+                <input type="text-area" name="description" placeholder="Description" class="champ_grid" required>     
+            </div>
+            <div id="selections">
+                <select name="annee" class="select_item" required>
+                    <option class="option_upload" value="3">3A</option>
+                    <option class="option_upload" value="4">4A</option>
+                    <option class="option_upload" value="5">5A</option>
+                    <option class="option_upload" value="6">Autre</option>
+                </select>
+
+                <select name="periode" class="select_item" required>
+                    <option class="option_upload" value="1">P1</option>
+                    <option class="option_upload" value="2">P2</option>
+                    <option class="option_upload" value="3">P3</option>
+                    <option class="option_upload" value="4">P4</option>
+                </select>
+
+                <select name="matiere" class="select_item" required>
+                    {% for key, val in listeMatieres.items() %}
+                        <option class="option_upload" value="{{ val }}">{{ val }}</option>
+                    {% endfor %}
+                </select>
+
+                <select name="type_doc" class="select_item" required>
+                    <option class="option_upload" value="CM">CM</option>
+                    <option class="option_upload" value="TD">TD</option>
+                    <option class="option_upload" value="Autre">Autre</option>
+                </select>
+            </div>
+        </div>
+            
+        <div id="boutonUpload">
+            <input type="submit" value="Upload" class="bouton">
+        </div>
+    </form>
+
+    <div class="upload_msg">
+        {% if (msg != "") %}
+            <span>{{msg}}</span>
+        {% endif %}
+    </div>
+</div>
+
+<script src="{{ url_for('static',filename='js/upload.js')}}"></script>
+
+{% endblock %}

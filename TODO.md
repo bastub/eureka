@@ -1,4 +1,6 @@
-- creer utilisateur non admin pour la base de données
-- migrer les données de la base de données
+- Creer utilisateur non admin pour la base de données
+- Migrer les données de la base de données
 - Ajouter la période (upload)
 - Rendre dynamique l'upload (avec année et spécialité)
+- Remplacer les key par les valeurs dans l'upload
+- Remplacer clés valeurs dans le dict ?

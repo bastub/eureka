@@ -177,7 +177,7 @@ def upload():
                 for j in range(0, len(mat[i])):
                     dict.update(mat[i][j])
             dict["Autre"] = "divers"
-            return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg ="", theme = cookie, avertissement = avertissement)
+            return render_template('upload2.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg ="", theme = cookie, avertissement = avertissement)
     return redirect(url_for('login'))
 
 @app.route("/upload", methods=['POST'])
@@ -198,7 +198,7 @@ def uploadPost():
                     dict.update(mat[i][j])
 
             if isPDF(file.filename) == False:
-                return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Le fichier n'est pas au format PDF", theme = cookie)
+                return render_template('upload2.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Le fichier n'est pas au format PDF", theme = cookie)
 
             if titre is not None and titre != "":
                 file.filename = titre + ".pdf"
@@ -209,14 +209,14 @@ def uploadPost():
 
             
             if res == False:
-                return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Erreur lors de l'upload", theme = cookie)
+                return render_template('upload2.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = "Erreur lors de l'upload", theme = cookie)
             
             # TODO
             # use scanPDF in another thread
             # thread = Thread(target=scanPDF, args=(file.filename, titre, auteur, description))
             # thread.start()
 
-            return render_template('upload.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = titre + " uploadé", theme = cookie)
+            return render_template('upload2.html', username = session['pseudo'], listeMatieres=dict, loggedin = loggedin(), msg = titre + " uploadé", theme = cookie)
     return redirect(url_for('login'))
 
 
